@@ -1,0 +1,80 @@
+specificationVersion: "0.1"
+id: meteomatics-rate-limits
+name: Meteomatics API Rate Limits
+description: >
+  Meteomatics enforces rate limits based on contract tier. Free trial accounts
+  have fixed published limits; paid tiers have contract-defined limits that
+  vary by plan. Users can monitor consumption via the user_stats endpoint.
+url: https://www.meteomatics.com/en/api/faq/
+
+tiers:
+  - name: Free Trial
+    description: Rate limits for the 14-day free trial account
+    limits:
+      - type: DailyQueries
+        value: 500
+        unit: requests/day
+        description: Maximum API queries per 24-hour period
+      - type: RatePerMinute
+        value: 50
+        unit: requests/minute
+        description: Maximum API queries per minute
+      - type: ParallelQueries
+        value: 10
+        unit: concurrent requests
+        description: Maximum simultaneous API connections
+
+  - name: Paid Plans
+    description: >
+      Rate limits for paid subscription tiers are contract-defined and vary
+      by plan. Contact Meteomatics sales for specific limits applicable to
+      your subscription.
+    limits:
+      - type: DailyQueries
+        value: contract-defined
+        unit: requests/day
+        description: Daily query limit as specified in service contract
+      - type: RatePerMinute
+        value: contract-defined
+        unit: requests/minute
+        description: Per-minute rate limit as specified in service contract
+      - type: ParallelQueries
+        value: contract-defined
+        unit: concurrent requests
+        description: Parallel query limit as specified in service contract
+
+monitoring:
+  userStatsEndpoint: https://api.meteomatics.com/user_stats
+  userStatsJsonEndpoint: https://api.meteomatics.com/user_stats_json
+  description: >
+    Query the user_stats endpoint (human-readable) or user_stats_json endpoint
+    (machine-readable) to check current consumption against contract limits.
+  monitoringInterval: 5 minutes (Priority Support tier; configurable)
+  externalMonitor: StatusCake (Priority Support tier)
+  internalMonitor: Sanesco (Meteomatics internal, monitors 3,000+ processes)
+
+authentication:
+  methods:
+    - type: BasicAuth
+      description: >
+        Username and password provided via HTTPS. Credentials are issued after
+        registration. HTTP basic auth is not supported; HTTPS is required.
+      endpoint: https://api.meteomatics.com
+    - type: OAuth2 / JWT Token
+      description: >
+        Token-based authentication via the Meteomatics login endpoint. Tokens
+        are JWT-formatted and valid for 2 hours after issuance.
+      tokenEndpoint: https://login.meteomatics.com/api/v1/token
+      tokenExpiry: 7200 seconds (2 hours)
+      tokenType: Bearer / access_token query parameter
+
+headers:
+  - name: Authorization
+    description: Basic Auth header (base64-encoded username:password) or Bearer token
+    required: true
+
+notes:
+  - Rate limit headers are not publicly documented; check user_stats for usage.
+  - Exceeding rate limits results in HTTP 429 Too Many Requests responses.
+  - Contract-specific limits are defined in service agreements.
+  - For Priority Support plans, Meteomatics will monitor up to 10 custom queries.

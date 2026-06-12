@@ -1,0 +1,124 @@
+specificationVersion: "0.1"
+id: meteomatics-plans-pricing
+name: Meteomatics API Plans and Pricing
+description: >
+  Meteomatics offers a free trial tier and custom-quoted paid plans tailored
+  to industry-specific needs. Pricing is usage-based and negotiated directly
+  with the Meteomatics sales team. Enterprise and OEM licensing is available.
+url: https://www.meteomatics.com/en/pricing/
+
+plans:
+  - name: Free Trial
+    description: >
+      14-day trial account providing access to core Weather API functionality
+      for evaluation and development purposes. Limited to basic weather
+      parameters and lower resolution data.
+    price: 0.00
+    currency: USD
+    billingCycle: one-time
+    features:
+      - 500 queries per day
+      - 50 queries per minute
+      - 10 parallel queries maximum
+      - Basic weather parameters
+      - JSON, CSV, XML output formats
+      - REST API access
+      - Basic authentication
+    limits:
+      queriesPerDay: 500
+      queriesPerMinute: 50
+      parallelQueries: 10
+      trialDurationDays: 14
+    commercialUse: false
+
+  - name: Standard
+    description: >
+      Entry-level paid plan for small businesses and individual developers
+      requiring reliable weather data access beyond the free trial. Custom
+      pricing based on usage volume and data parameters required.
+    price: null
+    currency: EUR
+    billingCycle: monthly
+    pricingModel: custom
+    contactForPricing: true
+    contactUrl: https://www.meteomatics.com/en/pricing/
+    features:
+      - Increased daily query limits (contract-defined)
+      - 1,800+ weather parameters
+      - Historical data back to 1940
+      - Forecast data
+      - Multiple output formats (JSON, CSV, XML, PNG, GeoTIFF, NetCDF)
+      - REST API access
+      - Basic and OAuth2 authentication
+      - Email support 24/7/365
+      - 99% monthly uptime SLA
+    sla:
+      uptimeTarget: 99.0
+      uptimePeriod: monthly
+      support: email
+
+  - name: Professional
+    description: >
+      Mid-tier paid plan for businesses requiring higher resolution data,
+      greater query volumes, and enhanced support. Includes access to
+      proprietary 1km resolution models for Europe (EURO1k) and the US (US1k).
+    price: null
+    currency: EUR
+    billingCycle: monthly
+    pricingModel: custom
+    contactForPricing: true
+    contactUrl: https://www.meteomatics.com/en/pricing/
+    features:
+      - Higher daily query limits (contract-defined)
+      - 1km native resolution models (EURO1k, US1k)
+      - 90m downscaling globally via NASA terrain models
+      - 15-minute temporal resolution
+      - Climate scenarios to 2100
+      - Marine and ocean data
+      - All output formats including WebP
+      - Extended Support SLA (99.5% uptime)
+      - Email support with 1-business-day response
+      - Phone support
+    sla:
+      uptimeTarget: 99.5
+      uptimePeriod: monthly
+      support: email-and-phone
+      responseTime: 1 business day
+
+  - name: Enterprise / Priority Support
+    description: >
+      Enterprise-grade plan for large organizations requiring maximum
+      availability, dedicated monitoring, fastest support response times,
+      and access to all Meteomatics proprietary models and data sources.
+    price: null
+    currency: EUR
+    billingCycle: annual
+    pricingModel: custom
+    contactForPricing: true
+    contactUrl: https://www.meteomatics.com/en/pricing/
+    features:
+      - Unlimited queries (contract-defined high volumes)
+      - All 1,800+ parameters
+      - All proprietary Meteomatics models
+      - AI-based weather models (AIFS-ENS)
+      - API monitoring for up to 10 custom queries
+      - Sanes.co status portal access
+      - 99.9% monthly uptime SLA
+      - Email support with 4-hour response during business hours
+      - Phone support 24/7
+      - Priority issue resolution (major issues within 4 hours)
+      - Monthly StatusCake monitoring reports
+      - Volume discounts
+    sla:
+      uptimeTarget: 99.9
+      uptimePeriod: monthly
+      support: email-and-phone-24x7
+      majorIssueResolution: 4 hours
+      moderateIssueResolution: 1 business day
+
+notes:
+  - Meteomatics pricing is entirely custom/quote-based for paid tiers.
+  - Packages are tailored to specific industry demands and usage volumes.
+  - Volume discounts are available as usage grows.
+  - OEM and white-label licensing is available for integration partners.
+  - Contact sales at https://www.meteomatics.com/en/pricing/ for a quote.

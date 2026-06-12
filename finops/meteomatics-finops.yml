@@ -1,0 +1,149 @@
+specificationVersion: "1.0"
+id: meteomatics-finops
+name: Meteomatics API FinOps Framework
+description: >
+  FinOps Framework FOCUS-aligned cost management and optimization guidance
+  for Meteomatics Weather API consumption. Meteomatics uses a custom
+  quote-based pricing model; costs are driven by query volume, data
+  resolution, parameter selection, and SLA tier.
+url: https://www.meteomatics.com/en/pricing/
+
+costDrivers:
+  - name: Query Volume
+    description: >
+      The primary cost driver. Pricing is based on the number of API queries
+      executed per day/month. Higher query volumes qualify for volume discounts.
+    type: Usage
+    unit: queries
+    notes: Contract-defined limits; volume discounts available at scale.
+
+  - name: Data Resolution
+    description: >
+      Higher-resolution data (1km EURO1k/US1k models, 90m downscaling) is
+      available at higher plan tiers. Standard global models at lower
+      resolution are included in base plans.
+    type: Feature
+    options:
+      - name: Global Models (standard resolution)
+        tier: Standard and above
+      - name: EURO1k (1km Europe)
+        tier: Professional and above
+      - name: US1k (1km United States)
+        tier: Professional and above
+      - name: 90m Downscaling (global, NASA terrain)
+        tier: Professional and above
+
+  - name: Parameter Breadth
+    description: >
+      Access to the full catalog of 1,800+ weather parameters (historical,
+      forecast, climate, marine, environmental, AI-based) may require
+      higher plan tiers.
+    type: Feature
+    maxParameters: 1800+
+
+  - name: Temporal Coverage
+    description: >
+      Historical data back to 1940 and climate projections to 2100 are
+      available at Professional tier and above. Basic forecasts only at
+      Standard tier.
+    type: Feature
+
+  - name: SLA Tier
+    description: >
+      Higher uptime guarantees (99.9% Priority vs 99% Standard) and faster
+      support response times come at additional cost.
+    type: ServiceLevel
+    tiers:
+      - name: Standard SLA
+        uptime: 99.0%
+      - name: Extended Support SLA
+        uptime: 99.5%
+      - name: Priority Support SLA
+        uptime: 99.9%
+
+costOptimization:
+  - strategy: Cache Responses
+    description: >
+      Weather data changes at discrete intervals (e.g., model updates every
+      1-6 hours). Cache API responses for at least the model update interval
+      to avoid redundant queries.
+    impact: High
+    effort: Low
+
+  - strategy: Minimize Parameter Count
+    description: >
+      Request only the weather parameters needed for your application. Each
+      query can include multiple parameters; consolidate calls rather than
+      querying each parameter separately.
+    impact: High
+    effort: Low
+
+  - strategy: Use Batch/Multi-Location Queries
+    description: >
+      The API supports querying multiple locations in a single request.
+      Use multi-location and polygon queries to reduce total query count
+      compared to issuing individual point queries.
+    impact: High
+    effort: Medium
+
+  - strategy: Monitor Usage with user_stats
+    description: >
+      Regularly poll https://api.meteomatics.com/user_stats_json to track
+      consumption against contracted limits. Set up automated alerts before
+      reaching daily limits to avoid overages or throttling.
+    impact: Medium
+    effort: Low
+
+  - strategy: Select Appropriate Resolution
+    description: >
+      Use global lower-resolution models where hyperlocal accuracy is not
+      required (e.g., long-range planning vs. operational routing). 1km
+      resolution carries a higher plan cost than standard global models.
+    impact: Medium
+    effort: Low
+
+  - strategy: Temporal Aggregation
+    description: >
+      For historical analysis, request hourly or daily aggregated data
+      rather than sub-hourly resolution where precision is not critical,
+      reducing query complexity and data transfer volume.
+    impact: Medium
+    effort: Medium
+
+  - strategy: Right-size SLA Tier
+    description: >
+      Match SLA tier to actual uptime requirements. Development/testing
+      environments can use Standard (99%) SLA; production critical
+      applications should use Priority (99.9%) SLA.
+    impact: Medium
+    effort: Low
+
+  - strategy: Negotiate Volume Discounts
+    description: >
+      Meteomatics offers volume discounts for high-consumption customers.
+      Consolidate usage across teams to a single contract to qualify for
+      better per-query pricing.
+    impact: High
+    effort: High
+
+costAllocation:
+  - dimension: Team / Department
+    description: Allocate costs by tracking API key usage per team or application
+  - dimension: Use Case
+    description: Tag queries by use case (e.g., logistics, energy, agriculture) to attribute costs
+  - dimension: Environment
+    description: Separate development, staging, and production query budgets
+
+billing:
+  model: custom-quote
+  frequency: monthly or annual (contract-dependent)
+  currency: EUR (primary); USD available
+  invoicing: direct with Meteomatics sales
+  trialCost: 0 (14-day free trial)
+  contactUrl: https://www.meteomatics.com/en/pricing/
+
+notes:
+  - No public self-service pricing; all paid plans require contacting sales.
+  - Free trial (14 days, 500 queries/day) is available for evaluation.
+  - Compensation credits apply if SLA uptime targets are missed (1-3 months free).
+  - OEM and reseller licensing available for platform integrations.

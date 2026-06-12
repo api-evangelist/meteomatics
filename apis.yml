@@ -1,0 +1,93 @@
+aid: meteomatics
+name: Meteomatics
+description: >
+  Meteomatics is a Swiss weather technology company offering a REST and
+  WebSocket Weather API that provides hyperlocal forecasts, historical weather
+  data back to 1940, climate scenarios to 2100, marine conditions, and
+  environmental parameters at up to 1km native resolution. The API exposes
+  over 1,800 weather parameters across global, regional, oceanic, and AI-based
+  models, supporting point, multi-location, route, and polygon queries with
+  output in JSON, CSV, XML, PNG, GeoTIFF, and NetCDF formats.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/meteomatics/refs/heads/main/apis.yml
+created: "2026-06-12"
+modified: "2026-06-12"
+specificationVersion: "0.19"
+
+tags:
+  - Weather
+  - Forecast
+  - Climate
+  - Historical Weather
+  - Marine
+  - Environmental Data
+  - Hyperlocal
+  - Meteorology
+  - Time Series
+  - Geospatial
+
+apis:
+  - name: Meteomatics Weather API
+    description: >
+      REST API providing access to over 1,800 weather parameters including
+      forecasts, historical data, climate scenarios, marine conditions, and
+      environmental variables at up to 1km resolution globally. Supports
+      point, multi-location, route, and polygon queries with OAuth2 and basic
+      authentication.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.meteomatics.com/en/weather-api/
+    baseURL: https://api.meteomatics.com
+    tags:
+      - Weather
+      - Forecast
+      - Historical Weather
+      - Climate
+      - Marine
+    properties:
+      - type: Documentation
+        url: https://www.meteomatics.com/en/api/
+      - type: GettingStarted
+        url: https://www.meteomatics.com/en/api/getting-started/
+      - type: APIRequest
+        url: https://www.meteomatics.com/en/api/request/
+      - type: APIResponse
+        url: https://www.meteomatics.com/en/api/response/
+      - type: Authentication
+        url: https://www.meteomatics.com/en/api/request/api-requests-oauth-authentification/
+      - type: Tutorials
+        url: https://www.meteomatics.com/en/api/api-tutorials/
+      - type: FAQ
+        url: https://www.meteomatics.com/en/api/faq/
+      - type: UserStats
+        url: https://api.meteomatics.com/user_stats
+
+common:
+  - type: Website
+    url: https://www.meteomatics.com
+  - type: Documentation
+    url: https://www.meteomatics.com/en/api/
+  - type: GitHub
+    url: https://github.com/meteomatics
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/meteomatics
+  - type: Blog
+    url: https://www.meteomatics.com/en/tech-blog/
+  - type: Pricing
+    url: https://www.meteomatics.com/en/pricing/
+  - type: StatusPage
+    url: https://sanes.co
+  - type: X
+    url: https://twitter.com/meteomatics
+  - type: Plans
+    url: plans/meteomatics-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/meteomatics-rate-limits.yml
+  - type: FinOps
+    url: finops/meteomatics-finops.yml
+  - type: ServiceLevelAgreement
+    url: https://www.meteomatics.com/en/service-level-agreement/
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
