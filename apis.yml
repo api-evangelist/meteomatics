@@ -61,6 +61,12 @@ apis:
         url: https://www.meteomatics.com/en/api/faq/
       - type: UserStats
         url: https://api.meteomatics.com/user_stats
+      - type: OpenAPI
+        url: openapi/meteomatics-weather-openapi.yml
+      - type: JSONSchema
+        url: json-schema/meteomatics-weather-response-schema.json
+      - type: Example
+        url: examples/meteomatics-point-query-example.json
 
 common:
   - type: Website
@@ -87,6 +93,12 @@ common:
     url: finops/meteomatics-finops.yml
   - type: ServiceLevelAgreement
     url: https://www.meteomatics.com/en/service-level-agreement/
+  - type: Vocabulary
+    url: vocabulary/meteomatics-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/meteomatics-context.jsonld
+  - type: Blog
+    url: blogs/blogs.json
 
 maintainers:
   - FN: Kin Lane

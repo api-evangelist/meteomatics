@@ -1,0 +1,164 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "time": "http://www.w3.org/2006/time#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "ssn": "http://www.w3.org/ns/ssn/",
+
+    "meteomatics": "https://www.meteomatics.com/vocab/",
+
+    "WeatherResponse": "meteomatics:WeatherResponse",
+    "ParameterData": "meteomatics:ParameterData",
+    "CoordinateData": "meteomatics:CoordinateData",
+    "DateValue": "meteomatics:DateValue",
+
+    "version": {
+      "@id": "meteomatics:version",
+      "@type": "xsd:string"
+    },
+    "user": {
+      "@id": "meteomatics:user",
+      "@type": "xsd:string"
+    },
+    "dateGenerated": {
+      "@id": "meteomatics:dateGenerated",
+      "@type": "xsd:dateTime"
+    },
+    "status": {
+      "@id": "meteomatics:status",
+      "@type": "xsd:string"
+    },
+    "data": {
+      "@id": "meteomatics:data",
+      "@container": "@list"
+    },
+    "parameter": {
+      "@id": "meteomatics:parameter",
+      "@type": "xsd:string"
+    },
+    "coordinates": {
+      "@id": "meteomatics:coordinates",
+      "@container": "@list"
+    },
+    "lat": {
+      "@id": "geo:lat",
+      "@type": "xsd:decimal"
+    },
+    "lon": {
+      "@id": "geo:long",
+      "@type": "xsd:decimal"
+    },
+    "dates": {
+      "@id": "meteomatics:dates",
+      "@container": "@list"
+    },
+    "date": {
+      "@id": "meteomatics:date",
+      "@type": "xsd:dateTime"
+    },
+    "value": {
+      "@id": "meteomatics:value",
+      "@type": "xsd:decimal"
+    },
+
+    "WeatherObservation": "sosa:Observation",
+    "observedProperty": "sosa:observedProperty",
+    "hasResult": "sosa:hasResult",
+    "phenomenonTime": "sosa:phenomenonTime",
+    "resultTime": "sosa:resultTime",
+    "featureOfInterest": "sosa:featureOfInterest",
+
+    "validdatetime": {
+      "@id": "meteomatics:validdatetime",
+      "@type": "xsd:string"
+    },
+    "model": {
+      "@id": "meteomatics:model",
+      "@type": "xsd:string"
+    },
+    "format": {
+      "@id": "meteomatics:format",
+      "@type": "xsd:string"
+    },
+
+    "WeatherParameter": "meteomatics:WeatherParameter",
+    "Temperature2m": {
+      "@id": "meteomatics:Temperature2m",
+      "@type": "sosa:ObservableProperty"
+    },
+    "Precipitation1h": {
+      "@id": "meteomatics:Precipitation1h",
+      "@type": "sosa:ObservableProperty"
+    },
+    "WindSpeed10m": {
+      "@id": "meteomatics:WindSpeed10m",
+      "@type": "sosa:ObservableProperty"
+    },
+    "RelativeHumidity2m": {
+      "@id": "meteomatics:RelativeHumidity2m",
+      "@type": "sosa:ObservableProperty"
+    },
+    "MeanSeaLevelPressure": {
+      "@id": "meteomatics:MeanSeaLevelPressure",
+      "@type": "sosa:ObservableProperty"
+    },
+
+    "access_token": {
+      "@id": "meteomatics:accessToken",
+      "@type": "xsd:string"
+    },
+
+    "TokenResponse": "meteomatics:TokenResponse",
+    "token_type": {
+      "@id": "meteomatics:tokenType",
+      "@type": "xsd:string"
+    },
+    "expires_in": {
+      "@id": "meteomatics:expiresIn",
+      "@type": "xsd:integer"
+    },
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+
+    "Organization": "schema:Organization",
+    "WebAPI": "schema:WebAPI",
+    "documentation": {
+      "@id": "schema:documentation",
+      "@type": "@id"
+    }
+  },
+
+  "@graph": [
+    {
+      "@id": "https://api.meteomatics.com",
+      "@type": "schema:WebAPI",
+      "schema:name": "Meteomatics Weather API",
+      "schema:description": "REST API providing access to over 1,800 weather parameters including forecasts, historical data, climate scenarios, marine conditions, and environmental variables.",
+      "schema:url": "https://www.meteomatics.com/en/weather-api/",
+      "schema:documentation": "https://www.meteomatics.com/en/api/",
+      "schema:provider": {
+        "@id": "https://www.meteomatics.com",
+        "@type": "schema:Organization",
+        "schema:name": "Meteomatics AG",
+        "schema:url": "https://www.meteomatics.com",
+        "schema:sameAs": [
+          "https://github.com/meteomatics",
+          "https://www.linkedin.com/company/meteomatics",
+          "https://twitter.com/meteomatics"
+        ]
+      }
+    }
+  ]
+}

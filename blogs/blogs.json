@@ -1,0 +1,27 @@
+{
+  "name": "Meteomatics Blog",
+  "description": "Articles, customer stories, and tech content from Meteomatics covering weather API usage, data science, and meteorological applications.",
+  "url": "https://www.meteomatics.com/en/tech-blog/",
+  "rss": "https://www.meteomatics.com/rss/en/articles.xml",
+  "updated": "2026-06-12",
+  "feeds": [
+    {
+      "name": "Meteomatics Articles - EN",
+      "url": "https://www.meteomatics.com/rss/en/articles.xml",
+      "language": "en",
+      "description": "Latest articles and customer stories from Meteomatics in English."
+    },
+    {
+      "name": "Meteomatics Documentation Feed",
+      "url": "https://www.meteomatics.com/rss/en/documentation.xml",
+      "language": "en",
+      "description": "Documentation and integration guides from Meteomatics."
+    },
+    {
+      "name": "Meteomatics Pages - EN",
+      "url": "https://www.meteomatics.com/rss/en/pages.xml",
+      "language": "en",
+      "description": "Key pages and information from Meteomatics."
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/meteomatics/main/json-schema/meteomatics-weather-response-schema.json",
+  "title": "Meteomatics Weather API Response",
+  "description": "JSON Schema for the standard weather data response from the Meteomatics Weather API (format=json).",
+  "type": "object",
+  "required": ["version", "user", "dateGenerated", "status", "data"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "API response schema version.",
+      "examples": ["3.0"]
+    },
+    "user": {
+      "type": "string",
+      "description": "Username associated with the API request.",
+      "examples": ["api_user"]
+    },
+    "dateGenerated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when the response was generated.",
+      "examples": ["2026-06-12T00:01:00Z"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Response status indicator.",
+      "enum": ["OK", "ERROR"],
+      "examples": ["OK"]
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of weather parameter result objects — one per requested parameter.",
+      "items": {
+        "$ref": "#/$defs/ParameterData"
+      }
+    }
+  },
+  "$defs": {
+    "ParameterData": {
+      "type": "object",
+      "title": "ParameterData",
+      "description": "Weather data for a single parameter across all requested locations.",
+      "required": ["parameter", "coordinates"],
+      "properties": {
+        "parameter": {
+          "type": "string",
+          "description": "Parameter code with unit (e.g. t_2m:C, precip_1h:mm, wind_speed_10m:ms).",
+          "examples": ["t_2m:C", "precip_1h:mm", "wind_speed_10m:ms"]
+        },
+        "coordinates": {
+          "type": "array",
+          "description": "Results indexed by geographic coordinate.",
+          "items": {
+            "$ref": "#/$defs/CoordinateData"
+          }
+        }
+      }
+    },
+    "CoordinateData": {
+      "type": "object",
+      "title": "CoordinateData",
+      "description": "Time-series of weather values at a single location.",
+      "required": ["lat", "lon", "dates"],
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "Latitude in decimal degrees (WGS84). At most 6 decimal places.",
+          "minimum": -90,
+          "maximum": 90,
+          "examples": [52.5206]
+        },
+        "lon": {
+          "type": "number",
+          "description": "Longitude in decimal degrees (WGS84). At most 6 decimal places.",
+          "minimum": -180,
+          "maximum": 180,
+          "examples": [13.4618]
+        },
+        "dates": {
+          "type": "array",
+          "description": "Ordered list of timestamp-value pairs.",
+          "items": {
+            "$ref": "#/$defs/DateValue"
+          }
+        }
+      }
+    },
+    "DateValue": {
+      "type": "object",
+      "title": "DateValue",
+      "description": "A single time-stamped weather observation or forecast value.",
+      "required": ["date", "value"],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC timestamp of the observation or forecast step.",
+          "examples": ["2026-06-12T00:00:00Z"]
+        },
+        "value": {
+          "type": ["number", "null"],
+          "description": "Numeric value of the weather parameter in the requested unit. Null when data is unavailable for this point/time.",
+          "examples": [18.4, -3.2, 0.0]
+        }
+      }
+    }
+  }
+}

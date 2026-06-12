@@ -1,0 +1,208 @@
+vocabulary:
+  name: Meteomatics Weather API Vocabulary
+  description: >
+    Domain terms, parameter codes, and concepts used by the Meteomatics Weather API.
+    Covers query components, weather parameters, location formats, output formats,
+    and authentication terminology.
+  version: "1.0"
+  updated: "2026-06-12"
+  source: https://www.meteomatics.com/en/api/
+
+categories:
+
+  - name: Query Components
+    description: The mandatory and optional parts that form a Meteomatics API request URL.
+    terms:
+
+      - term: validdatetime
+        definition: >
+          The date/time or time-range for which data is requested. Accepts an ISO 8601
+          single timestamp (e.g. 2026-06-12T00:00:00Z) or a range with step in the form
+          {start}--{end}:{step} (e.g. 2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H).
+
+      - term: parameters
+        definition: >
+          Comma-separated list of weather parameter codes with units appended after a
+          colon (e.g. t_2m:C, precip_1h:mm). Over 1,800 parameters are available.
+
+      - term: location
+        definition: >
+          Geographic specification for the query. Supports single points (lat,lon),
+          multiple points separated by +, grids ({lat_min},{lon_min}_{lat_max},{lon_max}:{res}),
+          route waypoints, and polygon definitions.
+
+      - term: format
+        definition: >
+          Output format appended at the end of the URL path. Supported values:
+          json, csv, xml, png, webp, geotiff, html, html-map, netcdf.
+
+      - term: model
+        definition: >
+          Optional query parameter specifying the weather model or data source.
+          "mix" (default) selects the best available source per grid point. Other values
+          include ecmwf-ifs, ncep-gfs, and regional models.
+
+  - name: Weather Parameters
+    description: Common weather parameter codes supported by the API.
+    terms:
+
+      - term: t_2m:C
+        definition: Air temperature 2 metres above ground in degrees Celsius.
+
+      - term: t_2m:K
+        definition: Air temperature 2 metres above ground in Kelvin.
+
+      - term: t_2m:F
+        definition: Air temperature 2 metres above ground in degrees Fahrenheit.
+
+      - term: precip_1h:mm
+        definition: Accumulated precipitation over 1 hour in millimetres.
+
+      - term: precip_24h:mm
+        definition: Accumulated precipitation over 24 hours in millimetres.
+
+      - term: wind_speed_10m:ms
+        definition: Wind speed at 10 metres above ground in metres per second.
+
+      - term: wind_speed_10m:kmh
+        definition: Wind speed at 10 metres above ground in kilometres per hour.
+
+      - term: wind_dir_10m:d
+        definition: Wind direction at 10 metres above ground in degrees (meteorological convention).
+
+      - term: wind_gusts_10m_1h:ms
+        definition: Maximum wind gust speed at 10 m over the last 1 hour in metres per second.
+
+      - term: relative_humidity_2m:p
+        definition: Relative humidity at 2 metres above ground as a percentage.
+
+      - term: msl_pressure:hPa
+        definition: Mean sea level pressure in hectopascals.
+
+      - term: cloud_cover:p
+        definition: Total cloud cover as a percentage.
+
+      - term: uv:idx
+        definition: UV index at the surface.
+
+      - term: sunrise:sql
+        definition: Sunrise time as a Unix timestamp.
+
+      - term: sunset:sql
+        definition: Sunset time as a Unix timestamp.
+
+      - term: significant_wave_height:m
+        definition: Significant wave height in metres (marine parameter).
+
+      - term: ocean_surface_temperature:C
+        definition: Ocean surface temperature in degrees Celsius (marine parameter).
+
+  - name: Location Formats
+    description: Supported formats for specifying query locations.
+    terms:
+
+      - term: point
+        definition: Single latitude/longitude pair, e.g. 52.52,13.40. Coordinates are in WGS84.
+
+      - term: multi-point
+        definition: Multiple lat/lon pairs separated by + signs, e.g. 52.52,13.40+48.85,2.35.
+
+      - term: grid
+        definition: >
+          Bounding box with resolution: {lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res},
+          e.g. 47.0,5.0_55.0,15.0:0.1,0.1 for a 0.1-degree grid over Central Europe.
+
+      - term: route
+        definition: >
+          Ordered sequence of waypoints with timestamps; returns weather interpolated
+          along the route at each timestamp.
+
+      - term: postal-code
+        definition: Shorthand using country+postal-code notation supported for some regions.
+
+  - name: Output Formats
+    description: Supported response formats for weather data.
+    terms:
+
+      - term: json
+        definition: >
+          JavaScript Object Notation; structured data with version, user, status, and
+          a data array of parameter/coordinate/date-value objects.
+
+      - term: csv
+        definition: Comma-separated values with a header row; suitable for spreadsheet import.
+
+      - term: xml
+        definition: Extensible Markup Language representation of the weather data.
+
+      - term: png
+        definition: Raster image of the weather field; supports custom colormaps.
+
+      - term: webp
+        definition: Modern compressed raster image format.
+
+      - term: geotiff
+        definition: Georeferenced raster image suitable for GIS applications.
+
+      - term: netcdf
+        definition: Network Common Data Form; binary scientific data format widely used in meteorology.
+
+      - term: html
+        definition: Human-readable HTML page with data tables or map visualisations.
+
+  - name: Authentication
+    description: Authentication methods supported by the Meteomatics API.
+    terms:
+
+      - term: basic-auth
+        definition: >
+          HTTP Basic Authentication using a Meteomatics account username and password.
+          Suitable for server-to-server calls where credentials are kept secret.
+
+      - term: bearer-token
+        definition: >
+          JWT obtained from https://login.meteomatics.com/api/v1/token by exchanging
+          Basic Auth credentials. Valid for 2 hours. Can be passed as the
+          Authorization: Bearer header or as the access_token query parameter.
+
+      - term: oauth2
+        definition: >
+          Meteomatics uses a token-exchange pattern where Basic Auth credentials are
+          traded for a short-lived JWT at the token endpoint. The JWT is then used
+          as a bearer token for subsequent API calls.
+
+  - name: Data Concepts
+    description: Core meteorological and API concepts.
+    terms:
+
+      - term: hyperlocal
+        definition: >
+          Weather data available at up to 1 km native spatial resolution, enabling
+          precise site-specific forecasts for applications like agriculture, energy,
+          and logistics.
+
+      - term: mix-model
+        definition: >
+          Meteomatics proprietary blending model that selects the best available
+          numerical weather prediction source for each grid point and time step,
+          optimising accuracy globally.
+
+      - term: ensemble
+        definition: >
+          A set of weather model runs that sample forecast uncertainty. Meteomatics
+          exposes ensemble members and derived statistics (mean, spread, percentiles).
+
+      - term: interpolation
+        definition: >
+          When a requested coordinate does not match a model grid point, the API
+          automatically interpolates values from surrounding grid points.
+
+      - term: isoline
+        definition: >
+          A line connecting points of equal value for a weather parameter (e.g.
+          isobar for pressure, isotherm for temperature). Supported as a query output type.
+
+      - term: isoband
+        definition: >
+          A filled polygon between two isolines, representing a range of values for
+          a weather parameter. Supported as a query output type.
