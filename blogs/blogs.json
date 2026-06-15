@@ -6,22 +6,14 @@
   "updated": "2026-06-12",
   "feeds": [
     {
-      "name": "Meteomatics Articles - EN",
-      "url": "https://www.meteomatics.com/rss/en/articles.xml",
-      "language": "en",
-      "description": "Latest articles and customer stories from Meteomatics in English."
-    },
-    {
-      "name": "Meteomatics Documentation Feed",
-      "url": "https://www.meteomatics.com/rss/en/documentation.xml",
-      "language": "en",
-      "description": "Documentation and integration guides from Meteomatics."
-    },
-    {
-      "name": "Meteomatics Pages - EN",
-      "url": "https://www.meteomatics.com/rss/en/pages.xml",
-      "language": "en",
-      "description": "Key pages and information from Meteomatics."
+      "source": "https://www.linkedin.com/company/meteomatics",
+      "feed_url": "https://www.linkedin.com/company/meteomatics",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
-  ]
+  ],
+  "repo": "meteomatics",
+  "post_count": 0,
+  "fetched": "2026-06-14T20:42:17Z"
 }
