@@ -9,7 +9,7 @@ description: >
   models, supporting point, multi-location, route, and polygon queries with
   output in JSON, CSV, XML, PNG, GeoTIFF, and NetCDF formats.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/meteomatics/refs/heads/main/apis.yml
 created: "2026-06-12"
 modified: "2026-06-12"
@@ -35,7 +35,7 @@ apis:
       environmental variables at up to 1km resolution globally. Supports
       point, multi-location, route, and polygon queries with OAuth2 and basic
       authentication.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.meteomatics.com/en/weather-api/
     baseURL: https://api.meteomatics.com
     tags:
