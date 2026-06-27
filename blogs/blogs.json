@@ -3,17 +3,21 @@
   "description": "Articles, customer stories, and tech content from Meteomatics covering weather API usage, data science, and meteorological applications.",
   "url": "https://www.meteomatics.com/en/tech-blog/",
   "rss": "https://www.meteomatics.com/rss/en/articles.xml",
-  "updated": "2026-06-12",
+  "updated": "2026-06-21",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/meteomatics",
-      "feed_url": "https://www.linkedin.com/company/meteomatics",
+      "source": "https://www.meteomatics.com/rss/en/articles.xml",
+      "feed_url": "https://www.meteomatics.com/rss/en/articles.xml",
       "title": "",
-      "saved": 0,
-      "method": "none"
+      "saved": 1,
+      "method": "feed"
+    },
+    {
+      "source": "https://www.linkedin.com/company/meteomatics",
+      "error": "HTTPError"
     }
   ],
   "repo": "meteomatics",
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 2,
+  "fetched": "2026-06-27T12:03:07Z"
 }
