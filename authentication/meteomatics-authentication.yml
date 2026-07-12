@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/meteomatics-weather-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic Authentication using Meteomatics account credentials.
+  sources:
+  - openapi/meteomatics-weather-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: JWT bearer token obtained from `https://login.meteomatics.com/api/v1/token`.
+    May also be supplied as the `access_token` query parameter.
+  sources:
+  - openapi/meteomatics-weather-openapi.yml
