@@ -69,6 +69,8 @@ apis:
         url: examples/meteomatics-point-query-example.json
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/meteomatics-agentic-access.yml
   - type: DomainSecurity
     url: security/meteomatics-domain-security.yml
   - type: Authentication
