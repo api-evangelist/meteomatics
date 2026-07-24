@@ -1,0 +1,98 @@
+openapi: 3.0.3
+info:
+  title: Meteomatics Weather Authentication API
+  description: 'The Meteomatics Weather API provides access to over 1,800 weather parameters including hyperlocal forecasts, historical data back to 1940, climate scenarios to 2100, marine conditions, and environmental variables at up to 1 km resolution globally. The API supports point, multi-location, route, and polygon queries, and returns data in JSON, CSV, XML, PNG, GeoTIFF, WebP, HTML, and NetCDF formats. Authentication is via HTTP Basic Auth or an OAuth2 bearer token.
+
+    '
+  version: '3.0'
+  termsOfService: https://www.meteomatics.com/en/terms-and-conditions/
+  contact:
+    name: Meteomatics Support
+    email: support@meteomatics.com
+    url: https://www.meteomatics.com/en/contact/
+  license:
+    name: Commercial
+    url: https://www.meteomatics.com/en/pricing/
+servers:
+- url: https://api.meteomatics.com
+  description: Meteomatics production API
+security:
+- basicAuth: []
+- bearerAuth: []
+tags:
+- name: Authentication
+  description: Obtain OAuth2 bearer tokens
+paths:
+  /api/v1/token:
+    get:
+      summary: Obtain OAuth2 bearer token
+      description: 'Exchange Basic Auth credentials for a short-lived JWT bearer token (valid 2 hours). Use the returned token as `?access_token=<token>` on subsequent requests or as `Authorization: Bearer <token>`.
+
+        '
+      operationId: getToken
+      tags:
+      - Authentication
+      security:
+      - basicAuth: []
+      servers:
+      - url: https://login.meteomatics.com
+        description: Meteomatics login server
+      responses:
+        '200':
+          description: Bearer token issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    TokenResponse:
+      type: object
+      description: OAuth2 bearer token response.
+      properties:
+        access_token:
+          type: string
+          description: JWT bearer token, valid for 2 hours.
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        token_type:
+          type: string
+          example: bearer
+        expires_in:
+          type: integer
+          description: Token lifetime in seconds (7200 = 2 hours).
+          example: 7200
+    ErrorResponse:
+      type: object
+      description: Standard error envelope.
+      properties:
+        status:
+          type: string
+          example: ERROR
+        message:
+          type: string
+          description: Human-readable error description.
+          example: 'Invalid parameter: t_999m:C'
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Meteomatics account credentials.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT bearer token obtained from `https://login.meteomatics.com/api/v1/token`. May also be supplied as the `access_token` query parameter.
+
+        '
+externalDocs:
+  description: Full API documentation
+  url: https://www.meteomatics.com/en/api/

@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Meteomatics Weather Authentication User API
+  description: 'The Meteomatics Weather API provides access to over 1,800 weather parameters including hyperlocal forecasts, historical data back to 1940, climate scenarios to 2100, marine conditions, and environmental variables at up to 1 km resolution globally. The API supports point, multi-location, route, and polygon queries, and returns data in JSON, CSV, XML, PNG, GeoTIFF, WebP, HTML, and NetCDF formats. Authentication is via HTTP Basic Auth or an OAuth2 bearer token.
+
+    '
+  version: '3.0'
+  termsOfService: https://www.meteomatics.com/en/terms-and-conditions/
+  contact:
+    name: Meteomatics Support
+    email: support@meteomatics.com
+    url: https://www.meteomatics.com/en/contact/
+  license:
+    name: Commercial
+    url: https://www.meteomatics.com/en/pricing/
+servers:
+- url: https://api.meteomatics.com
+  description: Meteomatics production API
+security:
+- basicAuth: []
+- bearerAuth: []
+tags:
+- name: User
+  description: Account usage statistics
+paths:
+  /user_stats:
+    get:
+      summary: Get user statistics (HTML)
+      description: Returns current query limits and usage statistics for the authenticated user in HTML format.
+      operationId: getUserStats
+      tags:
+      - User
+      responses:
+        '200':
+          description: HTML page with user statistics
+          content:
+            text/html:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user_stats_json:
+    get:
+      summary: Get user statistics (JSON)
+      description: Returns current query limits and usage statistics for the authenticated user in JSON format.
+      operationId: getUserStatsJson
+      tags:
+      - User
+      responses:
+        '200':
+          description: JSON object with user statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    UserStats:
+      type: object
+      description: Account usage and quota statistics.
+      properties:
+        user:
+          type: string
+          description: Username.
+          example: api_user
+        requests_today:
+          type: integer
+          description: Number of API requests made today.
+          example: 142
+        requests_limit:
+          type: integer
+          description: Maximum requests allowed per day.
+          example: 5000
+        data_points_today:
+          type: integer
+          description: Number of data points retrieved today.
+          example: 14200
+        data_points_limit:
+          type: integer
+          description: Maximum data points allowed per day.
+          example: 500000
+    ErrorResponse:
+      type: object
+      description: Standard error envelope.
+      properties:
+        status:
+          type: string
+          example: ERROR
+        message:
+          type: string
+          description: Human-readable error description.
+          example: 'Invalid parameter: t_999m:C'
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Meteomatics account credentials.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT bearer token obtained from `https://login.meteomatics.com/api/v1/token`. May also be supplied as the `access_token` query parameter.
+
+        '
+externalDocs:
+  description: Full API documentation
+  url: https://www.meteomatics.com/en/api/
