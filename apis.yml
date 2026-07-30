@@ -9,7 +9,20 @@ description: >
   models, supporting point, multi-location, route, and polygon queries with
   output in JSON, CSV, XML, PNG, GeoTIFF, and NetCDF formats.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/meteomatics.png
 url: https://raw.githubusercontent.com/api-evangelist/meteomatics/refs/heads/main/apis.yml
 created: "2026-06-12"
 modified: "2026-06-12"
@@ -28,46 +41,96 @@ tags:
   - Geospatial
 
 apis:
-  - name: Meteomatics Weather API
-    description: >
-      REST API providing access to over 1,800 weather parameters including
-      forecasts, historical data, climate scenarios, marine conditions, and
-      environmental variables at up to 1km resolution globally. Supports
-      point, multi-location, route, and polygon queries with OAuth2 and basic
-      authentication.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.meteomatics.com/en/weather-api/
-    baseURL: https://api.meteomatics.com
-    tags:
-      - Weather
-      - Forecast
-      - Historical Weather
-      - Climate
-      - Marine
-    properties:
-      - type: Documentation
-        url: https://www.meteomatics.com/en/api/
-      - type: GettingStarted
-        url: https://www.meteomatics.com/en/api/getting-started/
-      - type: APIRequest
-        url: https://www.meteomatics.com/en/api/request/
-      - type: APIResponse
-        url: https://www.meteomatics.com/en/api/response/
-      - type: Authentication
-        url: https://www.meteomatics.com/en/api/request/api-requests-oauth-authentification/
-      - type: Tutorials
-        url: https://www.meteomatics.com/en/api/api-tutorials/
-      - type: FAQ
-        url: https://www.meteomatics.com/en/api/faq/
-      - type: UserStats
-        url: https://api.meteomatics.com/user_stats
-      - type: OpenAPI
-        url: openapi/meteomatics-weather-openapi.yml
-      - type: JSONSchema
-        url: json-schema/meteomatics-weather-response-schema.json
-      - type: Examples
-        url: examples/meteomatics-point-query-example.json
-
+- aid: meteomatics:meteomatics-authentication-api
+  name: Meteomatics Authentication API
+  description: Obtain OAuth2 bearer tokens
+  humanURL: https://www.meteomatics.com/en/weather-api/
+  baseURL: https://api.meteomatics.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/meteomatics-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://www.meteomatics.com/en/api/
+  - type: GettingStarted
+    url: https://www.meteomatics.com/en/api/getting-started/
+  - type: APIRequest
+    url: https://www.meteomatics.com/en/api/request/
+  - type: APIResponse
+    url: https://www.meteomatics.com/en/api/response/
+  - type: Authentication
+    url: https://www.meteomatics.com/en/api/request/api-requests-oauth-authentification/
+  - type: Tutorials
+    url: https://www.meteomatics.com/en/api/api-tutorials/
+  - type: FAQ
+    url: https://www.meteomatics.com/en/api/faq/
+  - type: UserStats
+    url: https://api.meteomatics.com/user_stats
+  - type: JSONSchema
+    url: json-schema/meteomatics-weather-response-schema.json
+  - type: Examples
+    url: examples/meteomatics-point-query-example.json
+- aid: meteomatics:meteomatics-user-api
+  name: Meteomatics User API
+  description: Account usage statistics
+  humanURL: https://www.meteomatics.com/en/weather-api/
+  baseURL: https://api.meteomatics.com
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/meteomatics-user-api-openapi.yml
+  - type: Documentation
+    url: https://www.meteomatics.com/en/api/
+  - type: GettingStarted
+    url: https://www.meteomatics.com/en/api/getting-started/
+  - type: APIRequest
+    url: https://www.meteomatics.com/en/api/request/
+  - type: APIResponse
+    url: https://www.meteomatics.com/en/api/response/
+  - type: Authentication
+    url: https://www.meteomatics.com/en/api/request/api-requests-oauth-authentification/
+  - type: Tutorials
+    url: https://www.meteomatics.com/en/api/api-tutorials/
+  - type: FAQ
+    url: https://www.meteomatics.com/en/api/faq/
+  - type: UserStats
+    url: https://api.meteomatics.com/user_stats
+  - type: JSONSchema
+    url: json-schema/meteomatics-weather-response-schema.json
+  - type: Examples
+    url: examples/meteomatics-point-query-example.json
+- aid: meteomatics:meteomatics-weather-data-api
+  name: Meteomatics Weather Data API
+  description: Query weather parameters for point, grid, multi-location, and route requests
+  humanURL: https://www.meteomatics.com/en/weather-api/
+  baseURL: https://api.meteomatics.com
+  tags:
+  - Weather Data
+  properties:
+  - type: OpenAPI
+    url: openapi/meteomatics-weather-data-api-openapi.yml
+  - type: Documentation
+    url: https://www.meteomatics.com/en/api/
+  - type: GettingStarted
+    url: https://www.meteomatics.com/en/api/getting-started/
+  - type: APIRequest
+    url: https://www.meteomatics.com/en/api/request/
+  - type: APIResponse
+    url: https://www.meteomatics.com/en/api/response/
+  - type: Authentication
+    url: https://www.meteomatics.com/en/api/request/api-requests-oauth-authentification/
+  - type: Tutorials
+    url: https://www.meteomatics.com/en/api/api-tutorials/
+  - type: FAQ
+    url: https://www.meteomatics.com/en/api/faq/
+  - type: UserStats
+    url: https://api.meteomatics.com/user_stats
+  - type: JSONSchema
+    url: json-schema/meteomatics-weather-response-schema.json
+  - type: Examples
+    url: examples/meteomatics-point-query-example.json
 common:
   - type: AgenticAccess
     url: agentic-access/meteomatics-agentic-access.yml
