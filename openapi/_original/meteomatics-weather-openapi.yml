@@ -1,0 +1,459 @@
+openapi: 3.0.3
+info:
+  title: Meteomatics Weather API
+  description: >
+    The Meteomatics Weather API provides access to over 1,800 weather parameters
+    including hyperlocal forecasts, historical data back to 1940, climate scenarios
+    to 2100, marine conditions, and environmental variables at up to 1 km resolution
+    globally. The API supports point, multi-location, route, and polygon queries,
+    and returns data in JSON, CSV, XML, PNG, GeoTIFF, WebP, HTML, and NetCDF formats.
+    Authentication is via HTTP Basic Auth or an OAuth2 bearer token.
+  version: "3.0"
+  termsOfService: https://www.meteomatics.com/en/terms-and-conditions/
+  contact:
+    name: Meteomatics Support
+    email: support@meteomatics.com
+    url: https://www.meteomatics.com/en/contact/
+  license:
+    name: Commercial
+    url: https://www.meteomatics.com/en/pricing/
+
+externalDocs:
+  description: Full API documentation
+  url: https://www.meteomatics.com/en/api/
+
+servers:
+  - url: https://api.meteomatics.com
+    description: Meteomatics production API
+
+security:
+  - basicAuth: []
+  - bearerAuth: []
+
+tags:
+  - name: Weather Data
+    description: Query weather parameters for point, grid, multi-location, and route requests
+  - name: Authentication
+    description: Obtain OAuth2 bearer tokens
+  - name: User
+    description: Account usage statistics
+
+paths:
+
+  /user_stats:
+    get:
+      summary: Get user statistics (HTML)
+      description: Returns current query limits and usage statistics for the authenticated user in HTML format.
+      operationId: getUserStats
+      tags:
+        - User
+      responses:
+        "200":
+          description: HTML page with user statistics
+          content:
+            text/html:
+              schema:
+                type: string
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /user_stats_json:
+    get:
+      summary: Get user statistics (JSON)
+      description: Returns current query limits and usage statistics for the authenticated user in JSON format.
+      operationId: getUserStatsJson
+      tags:
+        - User
+      responses:
+        "200":
+          description: JSON object with user statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserStats"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /{validdatetime}/{parameters}/{location}/json:
+    get:
+      summary: Query weather data — JSON output
+      description: >
+        Retrieve weather data for a given datetime or time range, one or more weather
+        parameters, and a point or multi-point location. Returns results as JSON.
+
+        **URL pattern:**
+        `/{validdatetime}/{parameters}/{location}/json`
+
+        - `validdatetime` — ISO 8601 timestamp or range+step, e.g.
+          `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`
+        - `parameters` — comma-separated parameter codes, e.g. `t_2m:C,precip_1h:mm`
+        - `location` — `{lat},{lon}` for a point, or `{lat1},{lon1}+{lat2},{lon2}+...`
+          for multiple points
+      operationId: getWeatherDataJson
+      tags:
+        - Weather Data
+      parameters:
+        - $ref: "#/components/parameters/validdatetime"
+        - $ref: "#/components/parameters/parameters"
+        - $ref: "#/components/parameters/location"
+        - $ref: "#/components/parameters/model"
+        - $ref: "#/components/parameters/access_token"
+      responses:
+        "200":
+          description: Weather data in JSON format
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherResponse"
+              example:
+                version: "3.0"
+                user: "api_user"
+                dateGenerated: "2026-06-12T00:01:00Z"
+                status: "OK"
+                data:
+                  - parameter: "t_2m:C"
+                    coordinates:
+                      - lat: 52.5206
+                        lon: 13.4618
+                        dates:
+                          - date: "2026-06-12T00:00:00Z"
+                            value: 18.4
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimitExceeded"
+
+  /{validdatetime}/{parameters}/{location}/csv:
+    get:
+      summary: Query weather data — CSV output
+      description: >
+        Retrieve weather data and return as CSV. See the JSON endpoint for full parameter
+        descriptions.
+      operationId: getWeatherDataCsv
+      tags:
+        - Weather Data
+      parameters:
+        - $ref: "#/components/parameters/validdatetime"
+        - $ref: "#/components/parameters/parameters"
+        - $ref: "#/components/parameters/location"
+        - $ref: "#/components/parameters/model"
+        - $ref: "#/components/parameters/access_token"
+      responses:
+        "200":
+          description: Weather data in CSV format
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: CSV rows with header; columns depend on requested parameters.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimitExceeded"
+
+  /{validdatetime}/{parameters}/{location}/xml:
+    get:
+      summary: Query weather data — XML output
+      description: >
+        Retrieve weather data and return as XML. See the JSON endpoint for full parameter
+        descriptions.
+      operationId: getWeatherDataXml
+      tags:
+        - Weather Data
+      parameters:
+        - $ref: "#/components/parameters/validdatetime"
+        - $ref: "#/components/parameters/parameters"
+        - $ref: "#/components/parameters/location"
+        - $ref: "#/components/parameters/model"
+        - $ref: "#/components/parameters/access_token"
+      responses:
+        "200":
+          description: Weather data in XML format
+          content:
+            application/xml:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimitExceeded"
+
+  /{validdatetime}/{parameters}/{location}/png:
+    get:
+      summary: Query weather data — PNG image output
+      description: >
+        Retrieve weather data rendered as a PNG raster image.
+      operationId: getWeatherDataPng
+      tags:
+        - Weather Data
+      parameters:
+        - $ref: "#/components/parameters/validdatetime"
+        - $ref: "#/components/parameters/parameters"
+        - $ref: "#/components/parameters/location"
+        - $ref: "#/components/parameters/model"
+        - name: colormap
+          in: query
+          schema:
+            type: string
+          description: Colormap name to use for rendering (e.g. `blue-white-red`).
+        - $ref: "#/components/parameters/access_token"
+      responses:
+        "200":
+          description: PNG raster image of the requested weather parameter
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/v1/token:
+    get:
+      summary: Obtain OAuth2 bearer token
+      description: >
+        Exchange Basic Auth credentials for a short-lived JWT bearer token (valid
+        2 hours). Use the returned token as `?access_token=<token>` on subsequent
+        requests or as `Authorization: Bearer <token>`.
+      operationId: getToken
+      tags:
+        - Authentication
+      security:
+        - basicAuth: []
+      servers:
+        - url: https://login.meteomatics.com
+          description: Meteomatics login server
+      responses:
+        "200":
+          description: Bearer token issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+components:
+
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using Meteomatics account credentials.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        JWT bearer token obtained from `https://login.meteomatics.com/api/v1/token`.
+        May also be supplied as the `access_token` query parameter.
+
+  parameters:
+    validdatetime:
+      name: validdatetime
+      in: path
+      required: true
+      description: >
+        ISO 8601 datetime, or a range with step in the form
+        `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or
+        `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).
+      schema:
+        type: string
+        example: "2026-06-12T00:00:00Z"
+    parameters:
+      name: parameters
+      in: path
+      required: true
+      description: >
+        Comma-separated list of weather parameter codes with units, e.g.
+        `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.
+      schema:
+        type: string
+        example: "t_2m:C,precip_1h:mm"
+    location:
+      name: location
+      in: path
+      required: true
+      description: >
+        Point: `{lat},{lon}` (e.g. `52.52,13.40`).
+        Multi-point: `{lat1},{lon1}+{lat2},{lon2}`.
+        Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.
+      schema:
+        type: string
+        example: "52.52,13.40"
+    model:
+      name: model
+      in: query
+      required: false
+      description: >
+        Data source / model to use. `mix` (default) blends the best available
+        sources. Other values: `ecmwf-ifs`, `ncep-gfs`, `mch-cosmo-1e`, etc.
+      schema:
+        type: string
+        example: "mix"
+    access_token:
+      name: access_token
+      in: query
+      required: false
+      description: JWT bearer token as an alternative to the Authorization header.
+      schema:
+        type: string
+
+  schemas:
+
+    WeatherResponse:
+      type: object
+      description: Top-level JSON response for weather data queries.
+      properties:
+        version:
+          type: string
+          description: API response schema version.
+          example: "3.0"
+        user:
+          type: string
+          description: Username associated with the request.
+          example: "api_user"
+        dateGenerated:
+          type: string
+          format: date-time
+          description: UTC timestamp when the response was generated.
+          example: "2026-06-12T00:01:00Z"
+        status:
+          type: string
+          description: Response status indicator.
+          enum: [OK, ERROR]
+          example: "OK"
+        data:
+          type: array
+          description: Array of weather parameter result objects.
+          items:
+            $ref: "#/components/schemas/ParameterData"
+
+    ParameterData:
+      type: object
+      description: Weather data for a single parameter.
+      properties:
+        parameter:
+          type: string
+          description: Parameter code with unit (e.g. `t_2m:C`).
+          example: "t_2m:C"
+        coordinates:
+          type: array
+          description: Results per requested location.
+          items:
+            $ref: "#/components/schemas/CoordinateData"
+
+    CoordinateData:
+      type: object
+      description: Weather values at a single geographic coordinate.
+      properties:
+        lat:
+          type: number
+          format: double
+          description: Latitude in decimal degrees (WGS84).
+          example: 52.52
+        lon:
+          type: number
+          format: double
+          description: Longitude in decimal degrees (WGS84).
+          example: 13.40
+        dates:
+          type: array
+          description: Time-value pairs.
+          items:
+            $ref: "#/components/schemas/DateValue"
+
+    DateValue:
+      type: object
+      description: A single time-stamped weather value.
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp of the observation or forecast.
+          example: "2026-06-12T00:00:00Z"
+        value:
+          type: number
+          description: Numeric value of the weather parameter.
+          example: 18.4
+
+    TokenResponse:
+      type: object
+      description: OAuth2 bearer token response.
+      properties:
+        access_token:
+          type: string
+          description: JWT bearer token, valid for 2 hours.
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        token_type:
+          type: string
+          example: "bearer"
+        expires_in:
+          type: integer
+          description: Token lifetime in seconds (7200 = 2 hours).
+          example: 7200
+
+    UserStats:
+      type: object
+      description: Account usage and quota statistics.
+      properties:
+        user:
+          type: string
+          description: Username.
+          example: "api_user"
+        requests_today:
+          type: integer
+          description: Number of API requests made today.
+          example: 142
+        requests_limit:
+          type: integer
+          description: Maximum requests allowed per day.
+          example: 5000
+        data_points_today:
+          type: integer
+          description: Number of data points retrieved today.
+          example: 14200
+        data_points_limit:
+          type: integer
+          description: Maximum data points allowed per day.
+          example: 500000
+
+    ErrorResponse:
+      type: object
+      description: Standard error envelope.
+      properties:
+        status:
+          type: string
+          example: "ERROR"
+        message:
+          type: string
+          description: Human-readable error description.
+          example: "Invalid parameter: t_999m:C"
+
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    BadRequest:
+      description: The request is malformed — check datetime, parameter codes, or location format.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    RateLimitExceeded:
+      description: Daily request or data-point quota exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"

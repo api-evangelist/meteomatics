@@ -1,0 +1,18 @@
+{
+  "provider": "meteomatics",
+  "sources": [
+    "meteomatics-authentication-api-openapi.yml",
+    "meteomatics-user-api-openapi.yml",
+    "meteomatics-weather-data-api-openapi.yml"
+  ],
+  "outputs": [
+    "meteomatics-authentication-api-openapi.yml",
+    "meteomatics-user-api-openapi.yml",
+    "meteomatics-weather-data-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
