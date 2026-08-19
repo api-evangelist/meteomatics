@@ -1,0 +1,203 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meteomatics Weather Authentication Weather Data API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Weather Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query weather data — JSON output",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meteomatics.com/:validdatetime/:parameters/:location/json",
+            "params": [
+              {
+                "name": "validdatetime",
+                "value": "",
+                "type": "path",
+                "description": "ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+              },
+              {
+                "name": "parameters",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Data source / model to use. `mix` (default) blends the best available sources. Other values: `ecmwf-ifs`, `ncep-gfs`, `mch-cosmo-1e`, etc.\n"
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "JWT bearer token as an alternative to the Authorization header."
+              }
+            ]
+          },
+          "docs": "Retrieve weather data for a given datetime or time range, one or more weather parameters, and a point or multi-point location. Returns results as JSON.\n**URL pattern:** `/{validdatetime}/{parameters}/{location}/json`\n- `validdatetime` — ISO 8601 timestamp or range+step, e.g.\n  `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`\n- `parameters` — comma-separated parameter codes, e.g. `t_2m:C,precip_1h:mm` - `location` — `{lat},{lon}` for a point, or `{lat1},{lon1}+{lat2},{l"
+        },
+        {
+          "info": {
+            "name": "Query weather data — CSV output",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meteomatics.com/:validdatetime/:parameters/:location/csv",
+            "params": [
+              {
+                "name": "validdatetime",
+                "value": "",
+                "type": "path",
+                "description": "ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+              },
+              {
+                "name": "parameters",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Data source / model to use. `mix` (default) blends the best available sources. Other values: `ecmwf-ifs`, `ncep-gfs`, `mch-cosmo-1e`, etc.\n"
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "JWT bearer token as an alternative to the Authorization header."
+              }
+            ]
+          },
+          "docs": "Retrieve weather data and return as CSV. See the JSON endpoint for full parameter descriptions.\n"
+        },
+        {
+          "info": {
+            "name": "Query weather data — XML output",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meteomatics.com/:validdatetime/:parameters/:location/xml",
+            "params": [
+              {
+                "name": "validdatetime",
+                "value": "",
+                "type": "path",
+                "description": "ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+              },
+              {
+                "name": "parameters",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Data source / model to use. `mix` (default) blends the best available sources. Other values: `ecmwf-ifs`, `ncep-gfs`, `mch-cosmo-1e`, etc.\n"
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "JWT bearer token as an alternative to the Authorization header."
+              }
+            ]
+          },
+          "docs": "Retrieve weather data and return as XML. See the JSON endpoint for full parameter descriptions.\n"
+        },
+        {
+          "info": {
+            "name": "Query weather data — PNG image output",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meteomatics.com/:validdatetime/:parameters/:location/png",
+            "params": [
+              {
+                "name": "validdatetime",
+                "value": "",
+                "type": "path",
+                "description": "ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+              },
+              {
+                "name": "parameters",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Data source / model to use. `mix` (default) blends the best available sources. Other values: `ecmwf-ifs`, `ncep-gfs`, `mch-cosmo-1e`, etc.\n"
+              },
+              {
+                "name": "colormap",
+                "value": "",
+                "type": "query",
+                "description": "Colormap name to use for rendering (e.g. `blue-white-red`)."
+              },
+              {
+                "name": "access_token",
+                "value": "",
+                "type": "query",
+                "description": "JWT bearer token as an alternative to the Authorization header."
+              }
+            ]
+          },
+          "docs": "Retrieve weather data rendered as a PNG raster image.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

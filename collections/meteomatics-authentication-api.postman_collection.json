@@ -1,0 +1,193 @@
+{
+  "item": [
+    {
+      "id": "9adb4d7f-eaf1-495b-b88d-9416f1a54558",
+      "name": "Authentication",
+      "description": {
+        "content": "Obtain OAuth2 bearer tokens",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bd933812-0398-4135-9ae6-bdf69ce2fd63",
+          "name": "Obtain OAuth2 bearer token",
+          "request": {
+            "name": "Obtain OAuth2 bearer token",
+            "description": {
+              "content": "Exchange Basic Auth credentials for a short-lived JWT bearer token (valid 2 hours). Use the returned token as `?access_token=<token>` on subsequent requests or as `Authorization: Bearer <token>`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "api",
+                "v1",
+                "token"
+              ],
+              "host": [
+                "login",
+                "meteomatics",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dbe4c5fc-f056-462f-9696-118ee4309363",
+              "name": "Bearer token issued successfully",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "token"
+                  ],
+                  "host": [
+                    "login",
+                    "meteomatics",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5f0357a-2a6b-40b6-afe0-93a0520da24d",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "token"
+                  ],
+                  "host": [
+                    "login",
+                    "meteomatics",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.meteomatics.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "85190074-a81a-4ea2-86d5-3d59f5cece70",
+    "name": "Meteomatics Weather Authentication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Meteomatics Weather API provides access to over 1,800 weather parameters including hyperlocal forecasts, historical data back to 1940, climate scenarios to 2100, marine conditions, and environmental variables at up to 1 km resolution globally. The API supports point, multi-location, route, and polygon queries, and returns data in JSON, CSV, XML, PNG, GeoTIFF, WebP, HTML, and NetCDF formats. Authentication is via HTTP Basic Auth or an OAuth2 bearer token.\n\n\nContact Support:\n Name: Meteomatics Support\n Email: support@meteomatics.com",
+      "type": "text/plain"
+    }
+  }
+}

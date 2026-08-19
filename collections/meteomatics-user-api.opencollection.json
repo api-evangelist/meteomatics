@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meteomatics Weather Authentication User API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user statistics (HTML)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meteomatics.com/user_stats"
+          },
+          "docs": "Returns current query limits and usage statistics for the authenticated user in HTML format."
+        },
+        {
+          "info": {
+            "name": "Get user statistics (JSON)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meteomatics.com/user_stats_json"
+          },
+          "docs": "Returns current query limits and usage statistics for the authenticated user in JSON format."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1510 @@
+{
+  "item": [
+    {
+      "id": "18bfaec6-4714-4ba9-ad6b-99ab3e2a726e",
+      "name": "Weather Data",
+      "description": {
+        "content": "Query weather parameters for point, grid, multi-location, and route requests",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "96acfe0c-f6db-44f6-87c3-f394d173b8e6",
+          "name": "Query weather data — JSON output",
+          "request": {
+            "name": "Query weather data — JSON output",
+            "description": {
+              "content": "Retrieve weather data for a given datetime or time range, one or more weather parameters, and a point or multi-point location. Returns results as JSON.\n**URL pattern:** `/{validdatetime}/{parameters}/{location}/json`\n- `validdatetime` — ISO 8601 timestamp or range+step, e.g.\n  `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`\n- `parameters` — comma-separated parameter codes, e.g. `t_2m:C,precip_1h:mm` - `location` — `{lat},{lon}` for a point, or `{lat1},{lon1}+{lat2},{lon2}+...`\n  for multiple points\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":validdatetime",
+                ":parameters",
+                ":location",
+                "json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "Data source / model to use. `mix` (default) blends the best available sources. Other values: `ecmwf-ifs`, `ncep-gfs`, `mch-cosmo-1e`, etc.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "access_token",
+                  "value": "<string>",
+                  "description": "JWT bearer token as an alternative to the Authorization header."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "validdatetime",
+                  "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "parameters",
+                  "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location",
+                  "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0124bcce-a077-46b7-8f9b-78ddfd3cb84f",
+              "name": "Weather data in JSON format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"3.0\",\n  \"user\": \"api_user\",\n  \"dateGenerated\": \"2026-06-12T00:01:00Z\",\n  \"status\": \"OK\",\n  \"data\": [\n    {\n      \"parameter\": \"t_2m:C\",\n      \"coordinates\": [\n        {\n          \"lat\": 52.5206,\n          \"lon\": 13.4618,\n          \"dates\": [\n            {\n              \"date\": \"2026-06-12T00:00:00Z\",\n              \"value\": 18.4\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcb540b8-6650-4cd0-8fcd-409714b7843b",
+              "name": "The request is malformed — check datetime, parameter codes, or location format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43fd8c86-d4c4-4886-9fb8-8852284fad95",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "888674e2-90d2-4559-b387-aeb193f48de1",
+              "name": "Daily request or data-point quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81df02e8-6bbb-4a56-9eb2-a739faee5237",
+          "name": "Query weather data — CSV output",
+          "request": {
+            "name": "Query weather data — CSV output",
+            "description": {
+              "content": "Retrieve weather data and return as CSV. See the JSON endpoint for full parameter descriptions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":validdatetime",
+                ":parameters",
+                ":location",
+                "csv"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "Data source / model to use. `mix` (default) blends the best available sources. Other values: `ecmwf-ifs`, `ncep-gfs`, `mch-cosmo-1e`, etc.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "access_token",
+                  "value": "<string>",
+                  "description": "JWT bearer token as an alternative to the Authorization header."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "validdatetime",
+                  "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "parameters",
+                  "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location",
+                  "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c37f15a-8bf5-48b9-8b09-9bfb73256f29",
+              "name": "Weather data in CSV format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4b31e874-995e-4b9a-bab5-c113ea0739d0",
+              "name": "The request is malformed — check datetime, parameter codes, or location format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f46758d-cca6-42ad-9b39-80f82a41d76e",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3c2a605-a55e-4b88-93de-c4357516b91c",
+              "name": "Daily request or data-point quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42b94c42-bea9-4c9b-8467-6df8c190aa2c",
+          "name": "Query weather data — XML output",
+          "request": {
+            "name": "Query weather data — XML output",
+            "description": {
+              "content": "Retrieve weather data and return as XML. See the JSON endpoint for full parameter descriptions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":validdatetime",
+                ":parameters",
+                ":location",
+                "xml"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "Data source / model to use. `mix` (default) blends the best available sources. Other values: `ecmwf-ifs`, `ncep-gfs`, `mch-cosmo-1e`, etc.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "access_token",
+                  "value": "<string>",
+                  "description": "JWT bearer token as an alternative to the Authorization header."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "validdatetime",
+                  "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "parameters",
+                  "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location",
+                  "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "90f8decf-67dc-48cf-a6ac-5f20c0afb6cf",
+              "name": "Weather data in XML format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "xml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "559c571f-0197-4c5b-a3ba-db97a59410a3",
+              "name": "The request is malformed — check datetime, parameter codes, or location format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "xml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b8b5178-94c2-421b-a317-9cb79c9088b1",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "xml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be5c4ea5-eba3-4c25-a062-f7397b7b6fef",
+              "name": "Daily request or data-point quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "xml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43b1e7f4-55eb-43dc-8b33-17cb67dee39c",
+          "name": "Query weather data — PNG image output",
+          "request": {
+            "name": "Query weather data — PNG image output",
+            "description": {
+              "content": "Retrieve weather data rendered as a PNG raster image.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":validdatetime",
+                ":parameters",
+                ":location",
+                "png"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "Data source / model to use. `mix` (default) blends the best available sources. Other values: `ecmwf-ifs`, `ncep-gfs`, `mch-cosmo-1e`, etc.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "colormap",
+                  "value": "<string>",
+                  "description": "Colormap name to use for rendering (e.g. `blue-white-red`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "access_token",
+                  "value": "<string>",
+                  "description": "JWT bearer token as an alternative to the Authorization header."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "validdatetime",
+                  "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "parameters",
+                  "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location",
+                  "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/png"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93ab2b6b-7fd4-4632-bbed-e32f78137d1e",
+              "name": "PNG raster image of the requested weather parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "png"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "colormap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "image/png"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/png"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0f9414f-a302-431a-91a7-2f89fc804822",
+              "name": "The request is malformed — check datetime, parameter codes, or location format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "png"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "colormap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "965054c9-2d5b-4918-af69-8b979159d4a4",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":validdatetime",
+                    ":parameters",
+                    ":location",
+                    "png"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "mix"
+                    },
+                    {
+                      "key": "colormap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "access_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "validdatetime",
+                      "description": "(Required) ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parameters",
+                      "description": "(Required) Comma-separated list of weather parameter codes with units, e.g. `t_2m:C,precip_1h:mm,wind_speed_10m:ms`. Over 1,800 parameters supported.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ERROR\",\n  \"message\": \"Invalid parameter: t_999m:C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.meteomatics.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "698c3f7f-cd5f-48ba-bc7c-65b1f7b59bdc",
+    "name": "Meteomatics Weather Authentication Weather Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Meteomatics Weather API provides access to over 1,800 weather parameters including hyperlocal forecasts, historical data back to 1940, climate scenarios to 2100, marine conditions, and environmental variables at up to 1 km resolution globally. The API supports point, multi-location, route, and polygon queries, and returns data in JSON, CSV, XML, PNG, GeoTIFF, WebP, HTML, and NetCDF formats. Authentication is via HTTP Basic Auth or an OAuth2 bearer token.\n\n\nContact Support:\n Name: Meteomatics Support\n Email: support@meteomatics.com",
+      "type": "text/plain"
+    }
+  }
+}
