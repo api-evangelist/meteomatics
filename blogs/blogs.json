@@ -9,19 +9,15 @@
       "source": "https://www.meteomatics.com/rss/en/articles.xml",
       "feed_url": "https://www.meteomatics.com/rss/en/articles.xml",
       "title": "",
-      "saved": 1,
+      "saved": 0,
       "method": "feed"
     },
     {
       "source": "https://www.linkedin.com/company/meteomatics",
-      "feed_url": "https://www.linkedin.com/company/meteomatics",
-      "title": "",
-      "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "error": "HTTPError"
     }
   ],
   "repo": "meteomatics",
-  "post_count": 53,
-  "fetched": "2026-08-15T12:11:08Z"
+  "post_count": 56,
+  "fetched": "2026-08-22T20:20:02Z"
 }
