@@ -1,0 +1,37 @@
+generated: '2026-09-11'
+method: probed
+source: https://mcp.meteomatics.com/mcp
+status: published
+server:
+  name: meteomatics
+  transport: http
+  url: https://mcp.meteomatics.com/mcp
+deployment:
+  mode: remote
+  endpoint: https://mcp.meteomatics.com/mcp
+  verified: probed
+  probe: live
+  checked: '2026-09-11'
+  source: docs-check 2026-09-12 (endpoint found in the provider's own documentation, then probed)
+tools_count: 9
+tools:
+- name: get_weather_for_location
+  description: ''
+- name: get_weather_for_polygon
+  description: ''
+- name: get_weather_for_locations
+  description: ''
+- name: get_weather_map
+  description: ''
+- name: get_weather_map_legend
+  description: ''
+- name: get_opmet
+  description: ''
+- name: get_opmet_history
+  description: ''
+- name: find_station
+  description: ''
+- name: find_nearby_stations
+  description: ''
+tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
+authorship: provider
