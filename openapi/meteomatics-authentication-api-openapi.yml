@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Meteomatics Weather Authentication API
-  description: 'The Meteomatics Weather API provides access to over 1,800 weather parameters including hyperlocal forecasts, historical data back to 1940, climate scenarios to 2100, marine conditions, and environmental variables at up to 1 km resolution globally. The API supports point, multi-location, route, and polygon queries, and returns data in JSON, CSV, XML, PNG, GeoTIFF, WebP, HTML, and NetCDF formats. Authentication is via HTTP Basic Auth or an OAuth2 bearer token.
-
-    '
+  description: The Meteomatics Weather API provides access to over 1,800 weather parameters including hyperlocal forecasts, historical data back to 1940, climate scenarios to 2100, marine conditions, and environmental variables at up to 1 km resolution globally. The API supports point, multi-location, route, and polygon queries, and returns data in JSON, CSV, XML, PNG, GeoTIFF, WebP, HTML, and NetCDF formats. Authentication is via HTTP Basic Auth or an OAuth2 bearer token.
   version: '3.0'
   termsOfService: https://www.meteomatics.com/en/terms-and-conditions/
   contact:
@@ -26,9 +24,7 @@ paths:
   /api/v1/token:
     get:
       summary: Obtain OAuth2 bearer token
-      description: 'Exchange Basic Auth credentials for a short-lived JWT bearer token (valid 2 hours). Use the returned token as `?access_token=<token>` on subsequent requests or as `Authorization: Bearer <token>`.
-
-        '
+      description: 'Exchange Basic Auth credentials for a short-lived JWT bearer token (valid 2 hours). Use the returned token as `?access_token=` on subsequent requests or as `Authorization: Bearer `.'
       operationId: getToken
       tags:
       - Authentication
@@ -47,7 +43,25 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error envelope.
+      properties:
+        status:
+          type: string
+          example: ERROR
+        message:
+          type: string
+          description: Human-readable error description.
+          example: 'Invalid parameter: t_999m:C'
     TokenResponse:
       type: object
       description: OAuth2 bearer token response.
@@ -63,24 +77,6 @@ components:
           type: integer
           description: Token lifetime in seconds (7200 = 2 hours).
           example: 7200
-    ErrorResponse:
-      type: object
-      description: Standard error envelope.
-      properties:
-        status:
-          type: string
-          example: ERROR
-        message:
-          type: string
-          description: Human-readable error description.
-          example: 'Invalid parameter: t_999m:C'
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

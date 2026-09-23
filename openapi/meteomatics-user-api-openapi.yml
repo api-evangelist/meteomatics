@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Meteomatics Weather Authentication User API
-  description: 'The Meteomatics Weather API provides access to over 1,800 weather parameters including hyperlocal forecasts, historical data back to 1940, climate scenarios to 2100, marine conditions, and environmental variables at up to 1 km resolution globally. The API supports point, multi-location, route, and polygon queries, and returns data in JSON, CSV, XML, PNG, GeoTIFF, WebP, HTML, and NetCDF formats. Authentication is via HTTP Basic Auth or an OAuth2 bearer token.
-
-    '
+  title: Meteomatics Weather User API
+  description: The Meteomatics Weather API provides access to over 1,800 weather parameters including hyperlocal forecasts, historical data back to 1940, climate scenarios to 2100, marine conditions, and environmental variables at up to 1 km resolution globally. The API supports point, multi-location, route, and polygon queries, and returns data in JSON, CSV, XML, PNG, GeoTIFF, WebP, HTML, and NetCDF formats. Authentication is via HTTP Basic Auth or an OAuth2 bearer token.
   version: '3.0'
   termsOfService: https://www.meteomatics.com/en/terms-and-conditions/
   contact:
@@ -56,7 +54,25 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error envelope.
+      properties:
+        status:
+          type: string
+          example: ERROR
+        message:
+          type: string
+          description: Human-readable error description.
+          example: 'Invalid parameter: t_999m:C'
     UserStats:
       type: object
       description: Account usage and quota statistics.
@@ -81,24 +97,6 @@ components:
           type: integer
           description: Maximum data points allowed per day.
           example: 500000
-    ErrorResponse:
-      type: object
-      description: Standard error envelope.
-      properties:
-        status:
-          type: string
-          example: ERROR
-        message:
-          type: string
-          description: Human-readable error description.
-          example: 'Invalid parameter: t_999m:C'
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http
