@@ -43,13 +43,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ErrorResponse:
       type: object
@@ -77,6 +70,13 @@ components:
           type: integer
           description: Token lifetime in seconds (7200 = 2 hours).
           example: 7200
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http
