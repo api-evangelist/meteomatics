@@ -16,22 +16,34 @@ deployment:
 tools_count: 9
 tools:
 - name: get_weather_for_location
-  description: ''
+  description: 'Get weather time series for a specific location. To query by coordinates: provide lat
+    and lon. To query a specific weather station (e.g. WMO, ICAO, METAR): provide station_id (e.g. wmo_066900)
+    and omit lat/lon — the correct model is set aut'
 - name: get_weather_for_polygon
-  description: ''
+  description: Get aggregated weather time series over a polygon area.
 - name: get_weather_for_locations
-  description: ''
+  description: Get weather time series for multiple lat/lon points or weather stations in a single request.
+    Use this when the user asks about weather at several locations or wants to compare them. Each location
+    uses either lat+lon or station_id — not both
 - name: get_weather_map
-  description: ''
+  description: Get a Meteomatics WMS weather map image for a layer, CRS, and bounding box.
 - name: get_weather_map_legend
-  description: ''
+  description: Get a Meteomatics WMS legend graphic for a weather map layer and optional colormap.
 - name: get_opmet
-  description: ''
+  description: 'Get current aviation weather reports (METAR, TAF, SIGMET, etc.) for a timestamp. Returns
+    the most recent report available at or before the given timestamp as a GeoJSON FeatureCollection.
+    Specify exactly one location: a list of ICAO codes, a'
 - name: get_opmet_history
-  description: ''
+  description: Get aviation weather report history (METAR, TAF, SIGMET, etc.) over a time range. Returns
+    all events ordered by system availability time, including initial reports, updates, and cancellations,
+    as a GeoJSON FeatureCollection. Specify exactly
 - name: find_station
-  description: ''
+  description: Get a sorted CSV list of available weather stations from Meteomatics. All filters are optional;
+    omit them to list all stations globally.
 - name: find_nearby_stations
-  description: ''
+  description: Find weather stations near a point of interest by expanding the point into a small bounding
+    box. Returns the upstream Meteomatics CSV station list for user confirmation.
 tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
