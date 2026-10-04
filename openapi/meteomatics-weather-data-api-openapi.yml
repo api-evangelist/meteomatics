@@ -154,46 +154,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    RateLimitExceeded:
-      description: Daily request or data-point quota exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request is malformed — check datetime, parameter codes, or location format.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    location:
-      name: location
-      in: path
-      required: true
-      description: 'Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.
-
-        '
+    access_token:
+      name: access_token
+      in: query
+      required: false
+      description: JWT bearer token as an alternative to the Authorization header.
       schema:
         type: string
-        example: 52.52,13.40
-    validdatetime:
-      name: validdatetime
-      in: path
-      required: true
-      description: 'ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).
-
-        '
-      schema:
-        type: string
-        example: '2026-06-12T00:00:00Z'
     model:
       name: model
       in: query
@@ -204,6 +172,26 @@ components:
       schema:
         type: string
         example: mix
+    validdatetime:
+      name: validdatetime
+      in: path
+      required: true
+      description: 'ISO 8601 datetime, or a range with step in the form `{start}--{end}:{step}` (e.g. `2026-06-12T00:00:00Z` or `2026-06-12T00:00:00Z--2026-06-15T00:00:00Z:PT1H`).
+
+        '
+      schema:
+        type: string
+        example: '2026-06-12T00:00:00Z'
+    location:
+      name: location
+      in: path
+      required: true
+      description: 'Point: `{lat},{lon}` (e.g. `52.52,13.40`). Multi-point: `{lat1},{lon1}+{lat2},{lon2}`. Grid: `{lat_min},{lon_min}_{lat_max},{lon_max}:{lat_res},{lon_res}`.
+
+        '
+      schema:
+        type: string
+        example: 52.52,13.40
     parameters:
       name: parameters
       in: path
@@ -214,14 +202,20 @@ components:
       schema:
         type: string
         example: t_2m:C,precip_1h:mm
-    access_token:
-      name: access_token
-      in: query
-      required: false
-      description: JWT bearer token as an alternative to the Authorization header.
-      schema:
-        type: string
   schemas:
+    DateValue:
+      type: object
+      description: A single time-stamped weather value.
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: UTC timestamp of the observation or forecast.
+          example: '2026-06-12T00:00:00Z'
+        value:
+          type: number
+          description: Numeric value of the weather parameter.
+          example: 18.4
     ErrorResponse:
       type: object
       description: Standard error envelope.
@@ -246,6 +240,25 @@ components:
           description: Results per requested location.
           items:
             $ref: '#/components/schemas/CoordinateData'
+    CoordinateData:
+      type: object
+      description: Weather values at a single geographic coordinate.
+      properties:
+        lat:
+          type: number
+          format: double
+          description: Latitude in decimal degrees (WGS84).
+          example: 52.52
+        lon:
+          type: number
+          format: double
+          description: Longitude in decimal degrees (WGS84).
+          example: 13.4
+        dates:
+          type: array
+          description: Time-value pairs.
+          items:
+            $ref: '#/components/schemas/DateValue'
     WeatherResponse:
       type: object
       description: Top-level JSON response for weather data queries.
@@ -275,38 +288,25 @@ components:
           description: Array of weather parameter result objects.
           items:
             $ref: '#/components/schemas/ParameterData'
-    CoordinateData:
-      type: object
-      description: Weather values at a single geographic coordinate.
-      properties:
-        lat:
-          type: number
-          format: double
-          description: Latitude in decimal degrees (WGS84).
-          example: 52.52
-        lon:
-          type: number
-          format: double
-          description: Longitude in decimal degrees (WGS84).
-          example: 13.4
-        dates:
-          type: array
-          description: Time-value pairs.
-          items:
-            $ref: '#/components/schemas/DateValue'
-    DateValue:
-      type: object
-      description: A single time-stamped weather value.
-      properties:
-        date:
-          type: string
-          format: date-time
-          description: UTC timestamp of the observation or forecast.
-          example: '2026-06-12T00:00:00Z'
-        value:
-          type: number
-          description: Numeric value of the weather parameter.
-          example: 18.4
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request is malformed — check datetime, parameter codes, or location format.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    RateLimitExceeded:
+      description: Daily request or data-point quota exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

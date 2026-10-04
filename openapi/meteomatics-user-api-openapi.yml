@@ -55,17 +55,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error envelope.
-      properties:
-        status:
-          type: string
-          example: ERROR
-        message:
-          type: string
-          description: Human-readable error description.
-          example: 'Invalid parameter: t_999m:C'
     UserStats:
       type: object
       description: Account usage and quota statistics.
@@ -90,6 +79,17 @@ components:
           type: integer
           description: Maximum data points allowed per day.
           example: 500000
+    ErrorResponse:
+      type: object
+      description: Standard error envelope.
+      properties:
+        status:
+          type: string
+          example: ERROR
+        message:
+          type: string
+          description: Human-readable error description.
+          example: 'Invalid parameter: t_999m:C'
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
