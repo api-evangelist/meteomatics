@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 specificationVersion: "0.1"
 id: meteomatics-plans-pricing
 name: Meteomatics API Plans and Pricing
@@ -122,3 +126,34 @@ notes:
   - Volume discounts are available as usage grows.
   - OEM and white-label licensing is available for integration partners.
   - Contact sales at https://www.meteomatics.com/en/pricing/ for a quote.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Free Trial
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Standard
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Professional
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise / Priority Support
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
