@@ -2,6 +2,7 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://azuremarketplace.microsoft.com/
+- https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
 - wordpress/integrations/wordpress-integration-edges.yml
 marketplace_apps: []
 edges:
@@ -22,6 +23,32 @@ edges:
   seller_name: Meteomatics AG
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: Pipedream
+  partner: pipedream
+  partner_match: aggregator
+  type: marketplace
+  marketplace: pipedream-components
+  channel: open-source-node
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/meteomatics_weather_api
+  category: null
+  contract_reference:
+    register: Pipedream components (PipedreamHQ/pipedream components/)
+    spec_file: null
+    role: ipaas-connector:pipedream
+    registered_name: meteomatics weather api
+    matched_domain: meteomatics.com
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: meteomatics_weather_api
+    actions: true
+    sources: false
+    builder: Pipedream repo (component)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
 - partner_name: WordPress (own)
   partner: wordpress
   partner_match: mirror
@@ -40,4 +67,4 @@ edges:
   detected_by: mirror-platform-listings.py
   category: WordPress plugin
 source:
-- wordpress/integrations/wordpress-integration-edges.yml
+- https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
