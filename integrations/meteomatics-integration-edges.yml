@@ -2,6 +2,7 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://azuremarketplace.microsoft.com/
+- wordpress/integrations/wordpress-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -21,3 +22,22 @@ edges:
   seller_name: Meteomatics AG
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/meteomatics-weather-widget/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Meteomatics Weather Widget
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
+source:
+- wordpress/integrations/wordpress-integration-edges.yml
