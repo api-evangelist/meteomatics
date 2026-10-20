@@ -18,13 +18,16 @@ tools:
 - name: get_weather_for_location
   description: 'Get weather time series for a specific location. To query by coordinates: provide lat
     and lon. To query a specific weather station (e.g. WMO, ICAO, METAR): provide station_id (e.g. wmo_066900)
-    and omit lat/lon — the correct model is set aut'
+    and omit lat/lon — the correct model is set automatically. Never put a station identifier in the model
+    or parameters fields.'
 - name: get_weather_for_polygon
   description: Get aggregated weather time series over a polygon area.
 - name: get_weather_for_locations
   description: Get weather time series for multiple lat/lon points or weather stations in a single request.
     Use this when the user asks about weather at several locations or wants to compare them. Each location
-    uses either lat+lon or station_id — not both
+    uses either lat+lon or station_id — not both. The API returns coordinates in exactly the same order
+    as the locations array you provide, so you can match results back to your input locations by position
+    (first result = first location, etc.).
 - name: get_weather_map
   description: Get a Meteomatics WMS weather map image for a layer, CRS, and bounding box.
 - name: get_weather_map_legend
@@ -32,11 +35,12 @@ tools:
 - name: get_opmet
   description: 'Get current aviation weather reports (METAR, TAF, SIGMET, etc.) for a timestamp. Returns
     the most recent report available at or before the given timestamp as a GeoJSON FeatureCollection.
-    Specify exactly one location: a list of ICAO codes, a'
+    Specify exactly one location: a list of ICAO codes, a bounding box, or global=true.'
 - name: get_opmet_history
-  description: Get aviation weather report history (METAR, TAF, SIGMET, etc.) over a time range. Returns
+  description: 'Get aviation weather report history (METAR, TAF, SIGMET, etc.) over a time range. Returns
     all events ordered by system availability time, including initial reports, updates, and cancellations,
-    as a GeoJSON FeatureCollection. Specify exactly
+    as a GeoJSON FeatureCollection. Specify exactly one location: a list of ICAO codes, a bounding box,
+    or global=true.'
 - name: find_station
   description: Get a sorted CSV list of available weather stations from Meteomatics. All filters are optional;
     omit them to list all stations globally.
