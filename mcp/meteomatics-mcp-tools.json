@@ -1,0 +1,539 @@
+{
+  "endpoint": "https://mcp.meteomatics.com/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "Meteomatics Weather",
+    "version": "1.0.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "get_weather_for_location",
+        "description": "Get weather time series for a specific location. To query by coordinates: provide lat and lon. To query a specific weather station (e.g. WMO, ICAO, METAR): provide station_id (e.g. wmo_066900) and omit lat/lon — the correct model is set automatically. Never put a station identifier in the model or parameters fields.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "number",
+              "description": "Latitude"
+            },
+            "lon": {
+              "type": "number",
+              "description": "Longitude"
+            },
+            "station_id": {
+              "type": "string",
+              "description": "Use this to query a specific weather station by its identifier e.g. wmo_066900, icao_LSZH, metar_LSZH. Provide station_id instead of lat/lon. The model is automatically set to mix-obs."
+            },
+            "parameters": {
+              "type": "string",
+              "description": "Comma-separated Meteomatics parameter names e.g. t_2m:C,precip_1h:mm"
+            },
+            "starttime": {
+              "type": "string",
+              "description": "ISO 8601 UTC start e.g. 2026-03-24T00:00:00Z"
+            },
+            "endtime": {
+              "type": "string",
+              "description": "ISO 8601 UTC end e.g. 2026-03-24T23:00:00Z"
+            },
+            "interval": {
+              "type": "string",
+              "description": "ISO 8601 duration e.g. PT1H"
+            },
+            "model": {
+              "type": "string",
+              "description": "Weather model/source to use e.g. 'mix', 'ecmwf-ens', 'gfs', 'mix-obs'. Omit when using station_id."
+            },
+            "ens_select": {
+              "type": "string",
+              "description": "Ensemble member selection. Examples: 'member:1-50' are all members from 1 to 50, 'mean', 'median', 'quantile0.2', 'member:3' is the single member 3, 'spread', 'mode' is the most frequently occurring value among all ensemble members including the control run"
+            },
+            "calibrated": {
+              "type": "boolean",
+              "description": "When true, calibrates historical and nowcast (first 6 hours of forecast) data against actual station measurements. A station's influence decreases with distance from its location. Defaults to false."
+            }
+          },
+          "required": [
+            "parameters",
+            "starttime",
+            "endtime"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "get_weather_for_polygon",
+        "description": "Get aggregated weather time series over a polygon area.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "polygon_coords": {
+              "type": "string",
+              "description": "Lat/lon pairs separated by underscores e.g. 47.5,9.3_47.3,9.5"
+            },
+            "aggregation": {
+              "type": "string",
+              "description": "One of: mean, max, min, median, mode"
+            },
+            "parameters": {
+              "type": "string",
+              "description": "Comma-separated Meteomatics parameter names e.g. t_2m:C,precip_1h:mm"
+            },
+            "starttime": {
+              "type": "string",
+              "description": "ISO 8601 UTC start e.g. 2026-03-24T00:00:00Z"
+            },
+            "endtime": {
+              "type": "string",
+              "description": "ISO 8601 UTC end e.g. 2026-03-24T23:00:00Z"
+            },
+            "interval": {
+              "type": "string",
+              "description": "ISO 8601 duration e.g. PT1H"
+            },
+            "model": {
+              "type": "string",
+              "description": "Weather model/source to use e.g. 'mix', 'ecmwf-ens', 'gfs', 'mix-obs'. Omit when using station_id."
+            },
+            "ens_select": {
+              "type": "string",
+              "description": "Ensemble member selection. Examples: 'member:1-50' are all members from 1 to 50, 'mean', 'median', 'quantile0.2', 'member:3' is the single member 3, 'spread', 'mode' is the most frequently occurring value among all ensemble members including the control run"
+            },
+            "calibrated": {
+              "type": "boolean",
+              "description": "When true, calibrates historical and nowcast (first 6 hours of forecast) data against actual station measurements. A station's influence decreases with distance from its location. Defaults to false."
+            }
+          },
+          "required": [
+            "polygon_coords",
+            "aggregation",
+            "parameters",
+            "starttime",
+            "endtime"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "get_weather_for_locations",
+        "description": "Get weather time series for multiple lat/lon points or weather stations in a single request. Use this when the user asks about weather at several locations or wants to compare them. Each location uses either lat+lon or station_id — not both. The API returns coordinates in exactly the same order as the locations array you provide, so you can match results back to your input locations by position (first result = first location, etc.).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "locations": {
+              "type": "array",
+              "description": "List of locations to query. Each entry uses lat+lon or station_id.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Human-readable label e.g. Zurich"
+                  },
+                  "lat": {
+                    "type": "number",
+                    "description": "Latitude"
+                  },
+                  "lon": {
+                    "type": "number",
+                    "description": "Longitude"
+                  },
+                  "station_id": {
+                    "type": "string",
+                    "description": "Use this to query a specific weather station by its identifier e.g. wmo_066900, icao_LSZH, metar_LSZH. Provide station_id instead of lat/lon. The model is automatically set to mix-obs."
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            },
+            "parameters": {
+              "type": "string",
+              "description": "Comma-separated Meteomatics parameter names e.g. t_2m:C,precip_1h:mm"
+            },
+            "starttime": {
+              "type": "string",
+              "description": "ISO 8601 UTC start e.g. 2026-03-24T00:00:00Z"
+            },
+            "endtime": {
+              "type": "string",
+              "description": "ISO 8601 UTC end e.g. 2026-03-24T23:00:00Z"
+            },
+            "interval": {
+              "type": "string",
+              "description": "ISO 8601 duration e.g. PT1H"
+            },
+            "model": {
+              "type": "string",
+              "description": "Weather model/source to use e.g. 'mix', 'ecmwf-ens', 'gfs', 'mix-obs'. Omit when using station_id."
+            },
+            "ens_select": {
+              "type": "string",
+              "description": "Ensemble member selection. Examples: 'member:1-50' are all members from 1 to 50, 'mean', 'median', 'quantile0.2', 'member:3' is the single member 3, 'spread', 'mode' is the most frequently occurring value among all ensemble members including the control run"
+            },
+            "calibrated": {
+              "type": "boolean",
+              "description": "When true, calibrates historical and nowcast (first 6 hours of forecast) data against actual station measurements. A station's influence decreases with distance from its location. Defaults to false."
+            }
+          },
+          "required": [
+            "locations",
+            "parameters",
+            "starttime",
+            "endtime"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "get_weather_map",
+        "description": "Get a Meteomatics WMS weather map image for a layer, CRS, and bounding box.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "layer": {
+              "type": "string",
+              "description": "WMS layer name e.g. t_2m:C or mix:t_2m:C"
+            },
+            "crs": {
+              "type": "string",
+              "description": "Coordinate reference system. Supported values: EPSG:4326, EPSG:3857, EPSG:2056"
+            },
+            "bbox": {
+              "type": "string",
+              "description": "Bounding box as minLat,minLon,maxLat,maxLon or CRS-native axis order, e.g. -90,-180,90,180"
+            },
+            "width": {
+              "type": "number",
+              "description": "Image width in pixels. Integer in range 2..3072"
+            },
+            "height": {
+              "type": "number",
+              "description": "Image height in pixels. Integer in range 2..3072"
+            },
+            "format": {
+              "type": "string",
+              "description": "Output image format. Allowed values: image/png or image/webp. Default: image/png"
+            },
+            "time": {
+              "type": "string",
+              "description": "Optional ISO 8601 timestamp. If omitted, Meteomatics upstream defaults to now"
+            },
+            "style": {
+              "type": "string",
+              "description": "Optional Meteomatics colormap name e.g. JET. To retrieve a legend explaining the color scale, call get_weather_map_legend with the same layer and style"
+            },
+            "source": {
+              "type": "string",
+              "description": "Optional source/model selector e.g. mix or ecmwf-ifs"
+            },
+            "calibrated": {
+              "type": "boolean",
+              "description": "When true, calibrates historical and nowcast (first 6 hours of forecast) data against actual station measurements. A station's influence decreases with distance from its location. Defaults to false."
+            }
+          },
+          "required": [
+            "layer",
+            "crs",
+            "bbox",
+            "width",
+            "height"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "get_weather_map_legend",
+        "description": "Get a Meteomatics WMS legend graphic for a weather map layer and optional colormap.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "layer": {
+              "type": "string",
+              "description": "WMS layer name e.g. t_2m:C or mix:t_2m:C"
+            },
+            "style": {
+              "type": "string",
+              "description": "Optional Meteomatics colormap name e.g. JET. To retrieve a legend explaining the color scale, call get_weather_map_legend with the same layer and style"
+            },
+            "format": {
+              "type": "string",
+              "description": "Legend image format. Allowed values: image/png, image/webp, image/svg+xml. Default: image/png"
+            },
+            "transparent": {
+              "type": "string",
+              "description": "Optional legend background setting. Use true for transparent background; omitted means Meteomatics default"
+            }
+          },
+          "required": [
+            "layer"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "get_opmet",
+        "description": "Get current aviation weather reports (METAR, TAF, SIGMET, etc.) for a timestamp. Returns the most recent report available at or before the given timestamp as a GeoJSON FeatureCollection. Specify exactly one location: a list of ICAO codes, a bounding box, or global=true.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "timestamp": {
+              "type": "string",
+              "description": "ISO 8601 UTC timestamp e.g. 2026-03-04T13:00:00Z, or the string 'now'."
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "metar",
+                "taf",
+                "sigmet",
+                "airmet",
+                "pirep",
+                "vaa",
+                "tca",
+                "swa",
+                "airmet-us-text",
+                "airmet-us-graphical"
+              ],
+              "description": "Aviation weather report type. metar: aerodrome observations (includes SPECI); taf: terminal aerodrome forecasts; sigmet: significant meteorological information; airmet: airmen's meteorological information (ICAO); pirep: pilot reports; vaa: volcanic ash advisories; tca: tropical cyclone advisories; swa: space weather advisories; airmet-us-text: US AIRMETs in text format; airmet-us-graphical: US AIRMETs in graphical format."
+            },
+            "icao_codes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of ICAO airport codes to query, e.g. [\"LSZH\", \"EDDF\"]. Mutually exclusive with bounding_box and global."
+            },
+            "bounding_box": {
+              "type": "object",
+              "description": "Geographic bounding box. Mutually exclusive with icao_codes and global.",
+              "properties": {
+                "lat_max": {
+                  "type": "number",
+                  "description": "Maximum (northern) latitude"
+                },
+                "lon_min": {
+                  "type": "number",
+                  "description": "Minimum (western) longitude"
+                },
+                "lat_min": {
+                  "type": "number",
+                  "description": "Minimum (southern) latitude"
+                },
+                "lon_max": {
+                  "type": "number",
+                  "description": "Maximum (eastern) longitude"
+                }
+              },
+              "required": [
+                "lat_max",
+                "lon_min",
+                "lat_min",
+                "lon_max"
+              ]
+            },
+            "global": {
+              "type": "boolean",
+              "description": "Set to true to query globally. Mutually exclusive with icao_codes and bounding_box."
+            }
+          },
+          "required": [
+            "timestamp",
+            "type"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "get_opmet_history",
+        "description": "Get aviation weather report history (METAR, TAF, SIGMET, etc.) over a time range. Returns all events ordered by system availability time, including initial reports, updates, and cancellations, as a GeoJSON FeatureCollection. Specify exactly one location: a list of ICAO codes, a bounding box, or global=true.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "start_timestamp": {
+              "type": "string",
+              "description": "ISO 8601 UTC range start (inclusive), e.g. 2026-03-10T00:00:00Z."
+            },
+            "end_timestamp": {
+              "type": "string",
+              "description": "ISO 8601 UTC range end (exclusive), e.g. 2026-03-10T06:00:00Z."
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "metar",
+                "taf",
+                "sigmet",
+                "airmet",
+                "pirep",
+                "vaa",
+                "tca",
+                "swa",
+                "airmet-us-text",
+                "airmet-us-graphical"
+              ],
+              "description": "Aviation weather report type. metar: aerodrome observations (includes SPECI); taf: terminal aerodrome forecasts; sigmet: significant meteorological information; airmet: airmen's meteorological information (ICAO); pirep: pilot reports; vaa: volcanic ash advisories; tca: tropical cyclone advisories; swa: space weather advisories; airmet-us-text: US AIRMETs in text format; airmet-us-graphical: US AIRMETs in graphical format."
+            },
+            "icao_codes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of ICAO airport codes to query, e.g. [\"LSZH\", \"EDDF\"]. Mutually exclusive with bounding_box and global."
+            },
+            "bounding_box": {
+              "type": "object",
+              "description": "Geographic bounding box. Mutually exclusive with icao_codes and global.",
+              "properties": {
+                "lat_max": {
+                  "type": "number",
+                  "description": "Maximum (northern) latitude"
+                },
+                "lon_min": {
+                  "type": "number",
+                  "description": "Minimum (western) longitude"
+                },
+                "lat_min": {
+                  "type": "number",
+                  "description": "Minimum (southern) latitude"
+                },
+                "lon_max": {
+                  "type": "number",
+                  "description": "Maximum (eastern) longitude"
+                }
+              },
+              "required": [
+                "lat_max",
+                "lon_min",
+                "lat_min",
+                "lon_max"
+              ]
+            },
+            "global": {
+              "type": "boolean",
+              "description": "Set to true to query globally. Mutually exclusive with icao_codes and bounding_box."
+            }
+          },
+          "required": [
+            "start_timestamp",
+            "end_timestamp",
+            "type"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "find_station",
+        "description": "Get a sorted CSV list of available weather stations from Meteomatics. All filters are optional; omit them to list all stations globally.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "location": {
+              "type": "string",
+              "description": "Station search area. Examples: '47.3,9.3' for a point, '47.3,9.3_40,10' for a bounding box, or a region name such as 'germany'."
+            },
+            "elevation": {
+              "type": "number",
+              "description": "Approximate station elevation in meters above sea level, e.g. 300."
+            },
+            "parameters": {
+              "type": "string",
+              "description": "Comma-separated Meteomatics parameter names e.g. t_2m:C,precip_1h:mm"
+            },
+            "startdate": {
+              "type": "string",
+              "description": "Find stations that record data at least since this ISO 8601 UTC timestamp, e.g. 2017-10-01T00Z."
+            },
+            "enddate": {
+              "type": "string",
+              "description": "Find stations that record data at least until this ISO 8601 UTC timestamp, e.g. 2017-11-01T00Z."
+            }
+          }
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": true
+        }
+      },
+      {
+        "name": "find_nearby_stations",
+        "description": "Find weather stations near a point of interest by expanding the point into a small bounding box. Returns the upstream Meteomatics CSV station list for user confirmation.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "number",
+              "description": "Latitude"
+            },
+            "lon": {
+              "type": "number",
+              "description": "Longitude"
+            },
+            "search_radius_km": {
+              "type": "number",
+              "description": "Search radius in kilometers around the point of interest. Default: 3."
+            },
+            "elevation": {
+              "type": "number",
+              "description": "Approximate station elevation in meters above sea level, e.g. 300."
+            },
+            "parameters": {
+              "type": "string",
+              "description": "Comma-separated Meteomatics parameter names e.g. t_2m:C,precip_1h:mm"
+            },
+            "startdate": {
+              "type": "string",
+              "description": "Find stations that record data at least since this ISO 8601 UTC timestamp, e.g. 2017-10-01T00Z."
+            },
+            "enddate": {
+              "type": "string",
+              "description": "Find stations that record data at least until this ISO 8601 UTC timestamp, e.g. 2017-11-01T00Z."
+            }
+          },
+          "required": [
+            "lat",
+            "lon"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "openWorldHint": true
+        }
+      }
+    ]
+  }
+}
